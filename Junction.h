@@ -20,7 +20,7 @@ class Junction {
     int _defaultTimeSlice;
     int _maxTimeSlice;
     int _minTimeSlice;
-    //std::vector<Junction*> _inComingRoads;
+    std::vector<Junction*> _inComingRoads;
     
 
 public:
@@ -31,7 +31,7 @@ public:
     Junction* getGreenForIncomingJunction();
     void setTime(int time);
     void setConsts(int const DEFAULT_TIME_SLICE,int const MAX_TIME_SLICE , int const MIN_TIME_SLICE);
-    //void setInComingRoads(Junction &junc);
+    void setInComingRoads(Junction &junc);
 
     
     

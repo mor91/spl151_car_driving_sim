@@ -37,9 +37,8 @@ Junction* Junction::getGreenForIncomingJunction() {
     
     return _greenForIncomingJunction;
 }
-/*
+
 void Junction::setInComingRoads(Junction &junc) {
     _inComingRoads.push_back(&junc);
 }
 
-*/
