@@ -21,6 +21,7 @@ Road::Road(const Junction &startingJunction, const Junction &endJunction, int le
     _length=length;
     _baseSpeed=0;
     _noOfCars=0;
+    _timeSlice=_endJunction->getTimeSlice();
 }
 
 Road::~Road() {
@@ -61,6 +62,11 @@ std::map<int, std::vector<Car*> > Road::getFaultyCarsOnRoadMap() {
 int Road::getBaseSpeed() {
     return _baseSpeed;
 }
+
+void Road::addCarToWaitingList(Car* car) {
+    _waitingForGreenLightList.push(car);
+}
+
 
 
 

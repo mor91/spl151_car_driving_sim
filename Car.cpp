@@ -47,7 +47,14 @@ void Car::advanceCar(int time){
     }
     else if(remaining>0){
             this->newSpeed();
-            _distanceFromBeginningOfRoad=std::min(_speed,remaining);
+            if(remaining<_speed){
+                _distanceFromBeginningOfRoad=_currentRoad->getLen();
+                _currentRoad->addCarToWaitingList(this);
+            }
+            else
+                _distanceFromBeginningOfRoad+=_speed;
+            
+            
     }
     _history=_history.append("(").append(std::to_string(time)).append(",").append(_currentRoad->getSJunc().getId()).append(",").append(_currentRoad->getEJunc().getId()).append(",").append(std::to_string(_distanceFromBeginningOfRoad)).append(")");
     

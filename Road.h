@@ -12,7 +12,8 @@
 #include <string>
 #include <map>
 #include <vector>
-
+#include <queue>
+#include <iostream>
 
 class Road {
     Junction* _startingJunction;
@@ -20,7 +21,9 @@ class Road {
     int _length;
     int _baseSpeed;
     int _noOfCars;
-    std::map<int,std::vector<Car*>> _faultyCarsOnRoad;//initialize 
+    std::map<int,std::vector<Car*>> _faultyCarsOnRoad;
+    int _timeSlice;
+    std::queue<Car*> _waitingForGreenLightList;
     
 public:
     Road();
@@ -36,6 +39,7 @@ public:
     void addCarToRoad();
     std::map<int,std::vector<Car*>> getFaultyCarsOnRoadMap();
     int getBaseSpeed();
+    void addCarToWaitingList(Car* car);
 
     //void  changeSpeed()
     

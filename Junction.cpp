@@ -13,6 +13,7 @@ Junction::Junction() {
 
 Junction::Junction(const std::string &junctionID) {
     _junctionID=junctionID;
+    _currentTimeSlice=0;
 }
 
 Junction::~Junction() {
@@ -41,4 +42,9 @@ Junction* Junction::getGreenForIncomingJunction() {
 void Junction::setInComingRoads(Junction &junc) {
     _inComingRoads.push_back(&junc);
 }
+
+int Junction::getTimeSlice() {
+    return _defaultTimeSlice;
+}
+
 
