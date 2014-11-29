@@ -62,7 +62,7 @@ std::map<Junction*, std::map<Junction*,Road*>> IniClass::readRoadMap() const{
         for (auto& junc : section.second)
         {
             std::cout << junc.first << "=" << junc.second.get_value<std::string>() << "\n";
-            Junction* endJunction=new Junction("jk");
+            Junction* endJunction=new Junction(junc.first);
             Road* road=new Road(*startJunction,*endJunction ,junc.second.get_value<int>());
             roadMap[startJunction].insert(pair<Junction*,Road*>(endJunction,road));
             //startJunction.setInComingRoads(endJunction);

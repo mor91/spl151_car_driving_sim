@@ -63,9 +63,14 @@
           <standard>8</standard>
           <commandlineTool>g++</commandlineTool>
           <incDir>
-            <pElem>/usr/local/boost_1_57_0</pElem>
+            <pElem>/usr/include/boost</pElem>
           </incDir>
         </ccTool>
+        <linkerTool>
+          <linkerAddLib>
+            <pElem>/usr/include/boost</pElem>
+          </linkerAddLib>
+        </linkerTool>
       </compileType>
       <item path="AddCarEvent.cpp" ex="false" tool="1" flavor2="0">
       </item>
