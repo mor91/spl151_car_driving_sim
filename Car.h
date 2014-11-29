@@ -24,6 +24,7 @@ class Car {
     int _numOfJunctionTheCarPass;
     Road* _currentRoad;
     int _remainingTimeToFault;
+    int _currentRoadNumber;
 public:
     
     Car(const std::string &carID, std::map<int , Road*> roadPlan);
@@ -36,6 +37,9 @@ public:
     void setRemainingTimeToFault(int time);
     int getRemainingTimeOfFault();
     std::string getHistory();
+    void setCurrentRoad(Road* road);
+    void setNextRoad();
+    
 };
 
 #endif	/* CAR_H */

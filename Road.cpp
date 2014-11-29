@@ -67,6 +67,32 @@ void Road::addCarToWaitingList(Car* car) {
     _waitingForGreenLightList.push(car);
 }
 
+void Road::removeCarFromWaitingList() {
+    _waitingForGreenLightList.front()->setNextRoad();
+    _waitingForGreenLightList.pop();
+}
+
+void Road::addFaultyCar(Car& car) {
+
+}
+
+int Road::getTimeSlice() {
+    return _timeSlice;
+}
+
+int Road::getNumOfWaitingCars() {
+    return _numOfWaitingCars;
+}
+
+void Road::setNumOfWaitingCars() {
+    _numOfWaitingCars=_waitingForGreenLightList.size();
+}
+
+void Road::setTimeSlice(int time) {
+    _timeSlice=time;
+}
+
+
 
 
 

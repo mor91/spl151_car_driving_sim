@@ -11,29 +11,30 @@
 #include <vector>
 //#include "Road.h"
 
-//class Road;
+class Road;
 
 class Junction {
     std::string _junctionID;
-    Junction* _greenForIncomingJunction;
+    Road* _greenForRoad;
     int _currentTime;
     int _defaultTimeSlice;
     int _maxTimeSlice;
     int _minTimeSlice;
-    std::vector<Junction*> _inComingRoads;
+    std::vector<Road*> _inComingRoads;
     int _currentTimeSlice;
-    
+ 
 
 public:
     Junction();
     Junction(const std::string &junctionID);
     virtual ~Junction();
     std::string getId();
-    Junction* getGreenForIncomingJunction();
+    void setGreenForIncomingJunction();
     void setTime(int time);
     void setConsts(int const DEFAULT_TIME_SLICE,int const MAX_TIME_SLICE , int const MIN_TIME_SLICE);
-    void setInComingRoads(Junction &junc);
+    void setInComingRoads(Road &road);
     int getTimeSlice();
+    
 
     
     

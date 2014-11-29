@@ -6,7 +6,9 @@
  */
 
 #include "Junction.h"
+#include "Road.h"
 #include <vector>
+#include <string>
 
 Junction::Junction() {
 }
@@ -14,6 +16,7 @@ Junction::Junction() {
 Junction::Junction(const std::string &junctionID) {
     _junctionID=junctionID;
     _currentTimeSlice=0;
+    
 }
 
 Junction::~Junction() {
@@ -34,13 +37,31 @@ void Junction::setConsts(const int DEFAULT_TIME_SLICE, const int MAX_TIME_SLICE,
 }
 
 
-Junction* Junction::getGreenForIncomingJunction() {
-    
-    return _greenForIncomingJunction;
+void Junction::setGreenForIncomingJunction() {
+    int found=0;
+    for(int i=0; i<_inComingRoads.size() && !found;i++){
+        if(_inComingRoads[i]->getSJunc().getId().compare(_greenForRoad->getSJunc().getId())==0){
+            found=1; 
+        }
+        if(_greenForRoad->getTimeSlice()==_currentTimeSlice){
+            if(_greenForRoad->getNumOfWaitingCars()>=_greenForRoad->getTimeSlice())
+                _greenForRoad->setTimeSlice(std::min(_greenForRoad->getTimeSlice()+1,_maxTimeSlice));
+            if(_greenForRoad->getNumOfWaitingCars()==0)
+                _greenForRoad->setTimeSlice(std::min(_greenForRoad->getTimeSlice()-1, _minTimeSlice));
+            _greenForRoad=_inComingRoads[i+1];
+            _currentTimeSlice=0;
+            _greenForRoad->setNumOfWaitingCars();
+        }
+    }
+    if(_currentTimeSlice<_greenForRoad->getTimeSlice()){
+        _currentTimeSlice++;
+        _greenForRoad->removeCarFromWaitingList();
+    }
+
 }
 
-void Junction::setInComingRoads(Junction &junc) {
-    _inComingRoads.push_back(&junc);
+void Junction::setInComingRoads(Road &road) {
+    _inComingRoads.push_back(&road);
 }
 
 int Junction::getTimeSlice() {

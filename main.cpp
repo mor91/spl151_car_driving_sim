@@ -59,7 +59,12 @@ int main(int argc, char** argv) {
                 report->writeReport();
             }
         }
-        //advance cars- Car.advance function
+        for(auto& car:cars){
+            car.second->advanceCar();
+        }
+        for(auto& junc:junctuons){
+            junc.second->setGreenForIncomingJunction();
+        }
         time++;
     }
    

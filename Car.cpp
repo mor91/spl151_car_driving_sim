@@ -17,6 +17,7 @@ Car::Car(const std::string& carID, std::map<int, Road*> roadPlan) {
     _distanceFromBeginningOfRoad=0;
     _currentRoad=_roadPlan[0];
     _numOfJunctionTheCarPass=0;
+    _currentRoadNumber=0;
     
 }
 void Car::newSpeed(){
@@ -83,3 +84,16 @@ int Car::getRemainingTimeOfFault() {
     return _remainingTimeToFault;
 }
 
+void Car::setCurrentRoad(Road* road) {
+    _currentRoad=road;
+}
+
+void Car::setNextRoad() {
+    if(_currentRoadNumber<_roadPlan.size()){
+        _currentRoad=_roadPlan.find(_currentRoadNumber+1)->second;
+    }
+    else{
+        //remove car from cars in main
+    }
+    
+}
