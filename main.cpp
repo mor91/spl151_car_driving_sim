@@ -60,7 +60,7 @@ int main(int argc, char** argv) {
             }
         }
         for(auto& car:cars){
-            car.second->advanceCar();
+            car.second->advanceCar(time);
         }
         for(auto& junc:junctuons){
             junc.second->setGreenForIncomingJunction();
