@@ -8,7 +8,6 @@
 #ifndef CARREPORT_H
 #define	CARREPORT_H
 #include <string>
-
 #include "Report.h"
 
 
@@ -24,6 +23,7 @@ public:
     CarReport(const std::string &carID, const std::string &history,int faultyTimeLeft);
     void writeReport();
     virtual ~CarReport();
+    
 private:
 
 };

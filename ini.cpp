@@ -5,6 +5,7 @@
  * Created on November 17, 2014, 9:55 AM
  */
 #include "ini.h"
+#include "Junction.h"
 #include "Road.h"
 #include "Event.h"
 #include "Report.h"
@@ -25,7 +26,10 @@ int MAX_SPEED;
 int DEFAULT_TIME_SLICE;
 int MAX_TIME_SLICE;
 int MIN_TIME_SLICE;
- 
+std::map<std::string, Junction*> junctionsMap;
+std::map<Junction*, std::map<Junction*,Road*>> roadMap;
+std::map<std::string, Car*> carsMap;
+
 IniClass::IniClass(){}
  
 IniClass::~IniClass() {}
@@ -46,20 +50,22 @@ void IniClass::readConfiguration() const{
   
 
 }
-std::vector<Road> IniClass::readRoadMap() const{
+std::map<Junction*, std::map<Junction*,Road*>> IniClass::readRoadMap() const{
     cout << "Starting readRoadMap" << endl;
-    std::vector<Road> roadMap;
     boost::property_tree::ptree pt;
     boost::property_tree::ini_parser::read_ini("RoadMap.ini", pt);
      for (auto& section : pt)
-    {
+    {   
+        Junction* startJunction=new Junction(section.first);
+        junctionsMap.insert(pair<std::string , Junction*>(startJunction->getId(),startJunction));
         std::cout << '[' << section.first << "]\n";
-        for (auto& key : section.second)
+        for (auto& junc : section.second)
         {
-            std::cout << key.first << "=" << key.second.get_value<std::string>() << "\n";
-            Road* road=new Road(section.first,key.first,key.second.get_value<int>());
-            roadMap.push_back( *road);
-            
+            std::cout << junc.first << "=" << junc.second.get_value<std::string>() << "\n";
+            Junction* endJunction=new Junction("jk");
+            Road* road=new Road(*startJunction,*endJunction ,junc.second.get_value<int>());
+            roadMap[startJunction].insert(pair<Junction*,Road*>(endJunction,road));
+            //startJunction.setInComingRoads(endJunction);
         }
         
         
@@ -164,11 +170,24 @@ std::map<int, vector<Event*>> IniClass::readEvents() const{
           
         }
         if(type=="car_arrival"){
-           Event *carArrivel=new AddCarEvent(stoi(time),carId, roadPlan);
-           eventsMap[stoi(time)].push_back(carArrivel);//maybe we need to init the inner vector
+            std::map<int, Road*> roadPlanMap;
+            int j=0;
+            for(int i=0;i<roadPlan.length();i++){
+                Junction* jun1=junctionsMap[roadPlan. substr(0,2)];
+                Junction* jun2=junctionsMap[roadPlan.substr(3,4)];
+                    Road road=Road(roadMap[jun1][jun2]->getSJunc(),
+                    roadMap[jun1][jun2]->getEJunc(),
+                    roadMap[jun1][jun2]->getLen());
+                roadPlanMap.insert(std::pair<int, Road*>(j,&road));
+                i=+3;
+                j++;
+            }
+            Event *carArrivel=new AddCarEvent(stoi(time),carId, roadPlanMap);
+            eventsMap[stoi(time)].push_back(carArrivel);//maybe we need to init the inner vector
         }
         if(type=="car_fault"){
-            Event *carFault=new CarFaultEvent(stoi(time), carId ,stoi(timeOfFault) );
+            Car* car=carsMap.find(carId)->second;
+            Event *carFault=new CarFaultEvent(stoi(time), *car ,stoi(timeOfFault) );
             eventsMap[stoi(time)].push_back(carFault);///maybe we need to init the inner vector
         } 
         
@@ -202,5 +221,12 @@ int IniClass::getMinTimeSlice(){
 }
 int IniClass::getTerminationTime(){
     return terminationTime;
+}
+std::map<std::string, Junction*>  IniClass::getJunctionsMap(){
+    return junctionsMap;
+}
+void IniClass::setCarMap(std::map<std::string,Car*> cars){
+    carsMap=cars;
+    
 }
  

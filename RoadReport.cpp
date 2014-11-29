@@ -6,7 +6,11 @@
  */
 
 #include "RoadReport.h"
-
+#include "Car.h"
+#include "Road.h"
+#include <string>
+#include <map>
+#include <iostream>
 RoadReport::RoadReport() {
 }
 RoadReport::RoadReport(std::string startJunction, std::string endJunction, int time){
@@ -15,15 +19,24 @@ RoadReport::RoadReport(std::string startJunction, std::string endJunction, int t
     _time=time;
 }
 
-RoadReport::RoadReport(const std::string &startJunction, const std::string &endJunction, const std::string &cars) {
+RoadReport::RoadReport(const std::string &startJunction, const std::string &endJunction, const std::string &carsList) {
     _startJunction=startJunction;
     _endJunction=endJunction;
-    _cars=cars;
+    _carsList=carsList;
 }
 
 RoadReport::~RoadReport() {
 }
 void RoadReport::writeReport(){
-    
+    Road* road=_roadMap->find(&_startJunction)->second.find(&_endJunction)->second;
+    for(auto& car: *_cars){
+        if(car.second->getCurrentRoad()->getSJunc().getId().compare(road->getSJunc().getId())&&car.second->getCurrentRoad()->getEJunc().getId().compare(road->getEJunc().getId())){
+           _carsList=_carsList.append("(").append(car.second->getCarId()).append(",").append(std::to_string(car.second->getDistanceFromBeginningOfRoad())).append(")");
+        }
+        
+    }
+    _startJunction=road->getSJunc();
+    _endJunction=road->getEJunc();
+    _reoprts.push_back(this);
 }
 

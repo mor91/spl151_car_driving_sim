@@ -10,9 +10,11 @@
 #include <string>
 #include "Junction.h"
 
+
 class InComingJunction : public Junction{
 	Junction _junction;
 	int _timeSlice;
+        
 
 public:
 	InComingJunction();

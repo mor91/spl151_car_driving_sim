@@ -7,26 +7,35 @@
 
 #ifndef ROAD_H
 #define	ROAD_H
+#include "Car.h"
+#include "Junction.h"
 #include <string>
+#include <map>
+#include <vector>
+
 
 class Road {
-    std::string _startingJunction;
-    std::string _endJunction;
+    Junction* _startingJunction;
+    Junction* _endJunction;
     int _length;
     int _baseSpeed;
     int _noOfCars;
-    //std::vector<Car> _carsQueue;//maybe should be a queue
-    //std::vector<Car> _faultyCars;
-    //RoadReport::writeReport() _RoadReport;
+    std::map<int,std::vector<Car*>> _faultyCarsOnRoad;//initialize 
+    
 public:
     Road();
-    Road(const std::string &startingJunction, const std::string &endJunction, int length);
+    Road(const Junction &startingJunction, const Junction &endJunction, int length);
     virtual ~Road();
-    std::string getSJunc();
-    std::string getEJunc();
+    Junction getSJunc();
+    Junction getEJunc();
     int getLen();
     void baseSpeed();
     int getNoOfCars();
+    void removeFaultyCar(Car& car);
+    void addFaultyCar(Car& car);//implementation on CarFaultyCar
+    void addCarToRoad();
+    std::map<int,std::vector<Car*>> getFaultyCarsOnRoadMap();
+    int getBaseSpeed();
 
     //void  changeSpeed()
     

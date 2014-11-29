@@ -26,19 +26,6 @@
 
 using namespace std;
 
-bool termination(int terminationTime, int time , std::map<int,Road> roads){
-    if(time==terminationTime){
-        return true;
-    }
-    int noOfCars=0;
-    for(auto& valueRoad:roads ){
-        noOfCars=+valueRoad.second.getNoOfCars();
-        return noOfCars==0;
-    }
-    return false;
-                
-}
-
 int main(int argc, char** argv) {    
     IniClass a;
     a.readConfiguration();
@@ -46,26 +33,29 @@ int main(int argc, char** argv) {
     int const DEFAULT_TIME_SLICE=a.getDefaultTimeSlice();
     int const MAX_TIME_SLICE=a.getMaxTimeSlice();
     int const MIN_TIME_SLICE=a.getMinTimeSlice();
-    std::vector<Road> roadMap=a.readRoadMap();
+    std::map<Junction*, std::map<Junction*,Road*>> roadMap=a.readRoadMap();
     std::map<int, std::vector<Report*>> reportsMap=a.readCommands();
     std::map<int, std::vector<Event*>> eventsMap=a.readEvents();
-    std::map<std::string, Car> cars;// sort by id
-    std::map<std::string, Road> roads;// 
-    std::map<std::string, Junction> junctuons;//sort by id
-    for(auto& road:roadMap){
-        //initializing roads
-        //initializing junctions
-    }
+    std::map<std::string, Car*> cars;//get on implementation time of CarArrivalEvent
+    std::map<std::string, Junction*> junctuons=a.getJunctionsMap();
     int time=0;
     int simulationRunning=1;
+    Report* rep=new CarReport();
+    rep->setJunctions(junctuons);
+    rep->setRoadMap(roadMap);
+    Junction* junc=new Junction();
+    junc->setConsts(DEFAULT_TIME_SLICE,MAX_TIME_SLICE,MIN_TIME_SLICE);
     while(simulationRunning){
+        junc->setTime(time);
         if(eventsMap.find(time)!=eventsMap.end()){
             for(auto& event:eventsMap[time]){
+               a.setCarMap(cars);
                event->performEvent();
             }
         } 
         if(reportsMap.find(time)!=reportsMap.end()){
             for(auto& report:reportsMap[time]){
+                rep->setCars(cars);
                 report->writeReport();
             }
         }

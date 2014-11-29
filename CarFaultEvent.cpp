@@ -7,13 +7,15 @@
 
 #include "CarFaultEvent.h"
 #include "Event.h"
+#include "Road.h"
+#include "Car.h"
 
 CarFaultEvent::CarFaultEvent() {
 }
 
-CarFaultEvent::CarFaultEvent(int time, const std::string &carID, int timeOfFault) {
+CarFaultEvent::CarFaultEvent(int time, const Car &car, int timeOfFault) {
     _time=time;
-    _carID=carID;
+    *_car=car;
     _timeOfFault=timeOfFault;
 }
 
@@ -21,7 +23,8 @@ CarFaultEvent::~CarFaultEvent() {
 }
 
 void CarFaultEvent::performEvent(){
-    
+    //_car->getCurrentRoad()->addFaultyCar(*_car);
+    _car->setRemainingTimeToFault(_timeOfFault);
 }
 
 

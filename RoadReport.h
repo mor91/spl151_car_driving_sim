@@ -12,15 +12,15 @@
 
 
 class RoadReport:public Report {
-    std::string _startJunction;
-    std::string _endJunction;
-    std::string _cars;
+    Junction _startJunction;
+    Junction _endJunction;
+    std::string _carsList;
     std::string _reportId;
     int _time;
 public:
     RoadReport();
     RoadReport(std::string startJunction, std::string endJunction, int time);
-    RoadReport(const std::string &startJunction, const std::string &endJunction, const std::string &cars);
+    RoadReport(const std::string &startJunction, const std::string &endJunction, const std::string &carsList);
     virtual ~RoadReport();
     void writeReport();
 private:

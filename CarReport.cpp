@@ -6,6 +6,7 @@
  */
 
 #include "CarReport.h"
+#include <string>
 
 CarReport::CarReport() {
     
@@ -25,6 +26,14 @@ CarReport::CarReport(const std::string &carID, const std::string &history,int fa
 CarReport::~CarReport() {
 }
 void CarReport::writeReport(){
+    Car* car=_cars->find(_carID)->second;
+    _carID=car->getCarId();
+    _history=car->getHistory();
+    _faultyTimeLeft=car->getRemainingTimeOfFault();
+    _reoprts.push_back(this);
     
 }
+
+
+
 

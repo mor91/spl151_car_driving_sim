@@ -9,15 +9,15 @@
 #define	CARFAULTEVENT_H
 #include <string>
 #include "Event.h"
-
+#include "Car.h"
 
 class CarFaultEvent : public Event{
     int _time;
-    std::string _carID;
+    Car* _car;
     int _timeOfFault;
 public:
     CarFaultEvent();
-    CarFaultEvent(int time, const std::string &carID, int timeOfFault);
+    CarFaultEvent(int time, const Car &car, int timeOfFault);
     virtual ~CarFaultEvent();
     void performEvent();
 

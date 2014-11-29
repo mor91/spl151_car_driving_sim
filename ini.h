@@ -25,7 +25,7 @@ public:
     IniClass();
     virtual ~IniClass();
     void readConfiguration() const;
-    std::vector<Road> readRoadMap() const;
+    std::map<Junction*, std::map<Junction*,Road*>> readRoadMap() const;
     std::map<int, std::vector<Report*>> readCommands() const;
     std::map<int, vector<Event*>> readEvents() const;
     void writeReports(Report &report) const;
@@ -34,6 +34,8 @@ public:
     int getMaxTimeSlice();
     int getMinTimeSlice();
     int getTerminationTime();
+    std::map<std::string, Junction*> getJunctionsMap();
+    void setCarMap(std::map<std::string, Car*> cars);
 };
  
 #endif /* INI_H_ */

@@ -6,14 +6,18 @@
  */
 
 #include "Road.h"
+#include "Car.h"
 #include <math.h>
+#include <string>
+#include <iostream>
+#include <vector>
 
 Road::Road() {
 }
 
-Road::Road(const std::string &startingJunction, const std::string &endJunction, int length) {
-    _startingJunction=startingJunction;
-    _endJunction=endJunction;
+Road::Road(const Junction &startingJunction, const Junction &endJunction, int length) {
+    *_startingJunction=startingJunction;
+    *_endJunction=endJunction;
     _length=length;
     _baseSpeed=0;
     _noOfCars=0;
@@ -21,11 +25,11 @@ Road::Road(const std::string &startingJunction, const std::string &endJunction, 
 
 Road::~Road() {
 }
-std::string Road::getSJunc(){
-    return _startingJunction;
+Junction Road::getSJunc(){
+    return *_startingJunction;
 }
-std::string Road::getEJunc(){
-    return _endJunction;
+Junction Road::getEJunc(){
+    return *_endJunction;
 }
 int Road::getLen(){
     return _length;
@@ -36,3 +40,27 @@ void Road::baseSpeed(){
 int Road::getNoOfCars(){
     return _noOfCars;
 }
+void Road::removeFaultyCar(Car& car){
+    int position;
+    for(int i=0; i<_faultyCarsOnRoad[car.getDistanceFromBeginningOfRoad()].size();i++){//find the position of the car in the vector
+        if(car.getCarId().compare(_faultyCarsOnRoad[car.getDistanceFromBeginningOfRoad()][i]->getCarId())==0)
+            position=i;
+    }
+    _faultyCarsOnRoad[car.getDistanceFromBeginningOfRoad()]
+    .erase(_faultyCarsOnRoad[car.getDistanceFromBeginningOfRoad()].begin()+position);
+}
+void Road::addCarToRoad(){
+    _noOfCars++;
+}
+
+std::map<int, std::vector<Car*> > Road::getFaultyCarsOnRoadMap() {
+    return _faultyCarsOnRoad;
+
+}
+
+int Road::getBaseSpeed() {
+    return _baseSpeed;
+}
+
+
+
