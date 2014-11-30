@@ -25,7 +25,7 @@ public:
     IniClass();
     virtual ~IniClass();
     void readConfiguration() const;
-    std::map<Junction*, std::map<Junction*,Road*>> readRoadMap() const;
+    std::map<std::string, std::map<std::string,Road*>> readRoadMap() const;
     std::map<int, std::vector<Report*>> readCommands() const;
     std::map<int, vector<Event*>> readEvents() const;
     void writeReports(Report &report) const;

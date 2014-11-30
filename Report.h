@@ -20,14 +20,14 @@ public:
     std::vector<Report*> _reoprts;
     std::map<std::string, Car*> *_cars;
     std::map<std::string, Junction*> *_junctions;
-    std::map<Junction*, std::map<Junction*,Road*>> *_roadMap;
+    std::map<std::string, std::map<std::string, Road*>> *_roadMap;
     Report();
     Report(const std::string &reportID);
     virtual ~Report();
     virtual void writeReport()=0;
     std::map<std::string, Car*> setCars(std::map<std::string, Car*> &cars);
     std::map<std::string, Junction*> setJunctions(std::map<std::string, Junction*> &junctions);
-    std::map<Junction*, std::map<Junction*,Road*>> setRoadMap(std::map<Junction*, std::map<Junction*,Road*>> &roadMap);
+    void setRoadMap(std::map<std::string, std::map<std::string, Road*>> &roadMap);
 private:
     
 

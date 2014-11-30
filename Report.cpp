@@ -28,7 +28,7 @@ std::map<std::string, Junction*> Report::setJunctions(std::map<std::string, Junc
    *_junctions=junctions;
 }
 
-std::map<Junction*, std::map<Junction*, Road*> > Report::setRoadMap(std::map<Junction*, std::map<Junction*, Road*> > &roadMap) {
+void Report::setRoadMap(std::map<std::string, std::map<std::string, Road*>> &roadMap) {
    *_roadMap=roadMap;
 }
 

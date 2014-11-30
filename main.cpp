@@ -35,7 +35,7 @@ int main(int argc, char** argv) {
     int const MAX_TIME_SLICE=a.getMaxTimeSlice();
     int const MIN_TIME_SLICE=a.getMinTimeSlice();
     
-    std::map<Junction*, std::map<Junction*,Road*>> roadMap=a.readRoadMap();
+    std::map<std::string, std::map<std::string,Road*>> roadMap=a.readRoadMap();
     std::map<int, std::vector<Report*>> reportsMap=a.readCommands();
     std::map<int, std::vector<Event*>> eventsMap=a.readEvents();
     std::map<std::string, Car*> cars;//get on implementation time of CarArrivalEvent

@@ -27,7 +27,7 @@ int DEFAULT_TIME_SLICE;
 int MAX_TIME_SLICE;
 int MIN_TIME_SLICE;
 std::map<std::string, Junction*> junctionsMap;
-std::map<Junction*, std::map<Junction*,Road*>> roadMap;
+std::map<std::string, std::map<std::string,Road*>> roadMap;
 std::map<std::string, Car*> carsMap;
 
 IniClass::IniClass(){}
@@ -50,7 +50,7 @@ void IniClass::readConfiguration() const{
   
 
 }
-std::map<Junction*, std::map<Junction*,Road*>> IniClass::readRoadMap() const{
+std::map<std::string, std::map<std::string,Road*>> IniClass::readRoadMap() const{
     cout << "Starting readRoadMap" << endl;
     boost::property_tree::ptree pt;
     boost::property_tree::ini_parser::read_ini("RoadMap.ini", pt);
@@ -64,7 +64,7 @@ std::map<Junction*, std::map<Junction*,Road*>> IniClass::readRoadMap() const{
             std::cout << junc.first << "=" << junc.second.get_value<std::string>() << "\n";
             Junction* endJunction=new Junction(junc.first);
             Road* road=new Road(*startJunction,*endJunction ,junc.second.get_value<int>());
-            roadMap[startJunction].insert(pair<Junction*,Road*>(endJunction,road));
+            roadMap[startJunction->getId()].insert(pair<std::string,Road*>(endJunction->getId(),road));
             startJunction->setInComingRoads(*road);
         }
         
@@ -175,9 +175,9 @@ std::map<int, vector<Event*>> IniClass::readEvents() const{
             for(int i=0;i<roadPlan.length();i++){
                 Junction* jun1=junctionsMap[roadPlan. substr(0,2)];
                 Junction* jun2=junctionsMap[roadPlan.substr(3,4)];
-                    Road road=Road(roadMap[jun1][jun2]->getSJunc(),
-                    roadMap[jun1][jun2]->getEJunc(),
-                    roadMap[jun1][jun2]->getLen());
+                    Road road=Road(roadMap[jun1->getId()][jun2->getId()]->getSJunc(),
+                    roadMap[jun1->getId()][jun2->getId()]->getEJunc(),
+                    roadMap[jun1->getId()][jun2->getId()]->getLen());
                 roadPlanMap.insert(std::pair<int, Road*>(j,&road));
                 i=+3;
                 j++;
