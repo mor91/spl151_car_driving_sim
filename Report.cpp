@@ -20,11 +20,11 @@ Report::Report(const std::string &reportID) {
 Report::~Report() {
 }
 
-std::map<std::string, Car*> Report::setCars(std::map<std::string, Car*> &cars) {
+void Report::setCars(std::map<std::string, Car*> &cars) {
     *_cars=cars;
 }
 
-std::map<std::string, Junction*> Report::setJunctions(std::map<std::string, Junction*> &junctions) {
+void Report::setJunctions(std::map<std::string, Junction*> &junctions) {
    *_junctions=junctions;
 }
 
