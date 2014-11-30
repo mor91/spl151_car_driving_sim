@@ -68,11 +68,11 @@ LDLIBSOPTIONS=-L/usr/include/boost
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
-	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/spl151_car_driving_sim
+	"${MAKE}"  -f nbproject/Makefile-${CND_CONF}.mk ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cardrivingsimulator
 
-${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/spl151_car_driving_sim: ${OBJECTFILES}
+${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cardrivingsimulator: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
-	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/spl151_car_driving_sim ${OBJECTFILES} ${LDLIBSOPTIONS}
+	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cardrivingsimulator ${OBJECTFILES} ${LDLIBSOPTIONS}
 
 ${OBJECTDIR}/AddCarEvent.o: AddCarEvent.cpp 
 	${MKDIR} -p ${OBJECTDIR}
@@ -145,7 +145,7 @@ ${OBJECTDIR}/main.o: main.cpp
 # Clean Targets
 .clean-conf: ${CLEAN_SUBPROJECTS}
 	${RM} -r ${CND_BUILDDIR}/${CND_CONF}
-	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/spl151_car_driving_sim
+	${RM} ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/cardrivingsimulator
 
 # Subprojects
 .clean-subprojects:
