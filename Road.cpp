@@ -16,21 +16,21 @@ Road::Road() {
 }
 
 Road::Road(const Junction &startingJunction, const Junction &endJunction, int length) {
-    *_startingJunction=startingJunction;
-    *_endJunction=endJunction;
+    _startingJunction=startingJunction;
+    _endJunction=endJunction;
     _length=length;
     _baseSpeed=0;
     _noOfCars=0;
-    _timeSlice=_endJunction->getTimeSlice();
+    _timeSlice=_endJunction.getTimeSlice();
 }
 
 Road::~Road() {
 }
 Junction Road::getSJunc(){
-    return *_startingJunction;
+    return _startingJunction;
 }
 Junction Road::getEJunc(){
-    return *_endJunction;
+    return _endJunction;
 }
 int Road::getLen(){
     return _length;

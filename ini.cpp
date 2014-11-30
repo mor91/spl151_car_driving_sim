@@ -99,7 +99,7 @@ std::map<int, std::vector<Report*>> IniClass::readCommands() const{
             if(key.first=="time")
                 time=key.second.get_value<std::string>();
             if(key.first=="id")
-                time=key.second.get_value<std::string>();
+                id=key.second.get_value<std::string>();
             if(key.first=="carId")
                 carId=key.second.get_value<std::string>();
             if(key.first=="startJunction")
@@ -142,7 +142,7 @@ std::map<int, std::vector<Report*>> IniClass::readCommands() const{
 std::map<int, vector<Event*>> IniClass::readEvents() const{
    cout << "Starting readEvents" << endl;
     boost::property_tree::ptree pt;
-    boost::property_tree::ini_parser::read_ini("Events", pt);
+    boost::property_tree::ini_parser::read_ini("Events.ini", pt);
     std::map<int, std::vector<Event*>> eventsMap;
     for (auto& section : pt)
      {

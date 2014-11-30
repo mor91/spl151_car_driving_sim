@@ -29,15 +29,18 @@ using namespace std;
 int main(int argc, char** argv) {    
     IniClass a;
     a.readConfiguration();
+    
     int const MAX_SPEED=a.getMaxSpeed();
     int const DEFAULT_TIME_SLICE=a.getDefaultTimeSlice();
     int const MAX_TIME_SLICE=a.getMaxTimeSlice();
     int const MIN_TIME_SLICE=a.getMinTimeSlice();
+    
     std::map<Junction*, std::map<Junction*,Road*>> roadMap=a.readRoadMap();
     std::map<int, std::vector<Report*>> reportsMap=a.readCommands();
     std::map<int, std::vector<Event*>> eventsMap=a.readEvents();
     std::map<std::string, Car*> cars;//get on implementation time of CarArrivalEvent
     std::map<std::string, Junction*> junctuons=a.getJunctionsMap();
+    
     int time=0;
     int simulationRunning=1;
     Report* rep=new CarReport();
@@ -45,6 +48,7 @@ int main(int argc, char** argv) {
     rep->setRoadMap(roadMap);
     Junction* junc=new Junction();
     junc->setConsts(DEFAULT_TIME_SLICE,MAX_TIME_SLICE,MIN_TIME_SLICE);
+    
     while(simulationRunning){
         junc->setTime(time);
         if(eventsMap.find(time)!=eventsMap.end()){

@@ -16,8 +16,8 @@
 #include <iostream>
 
 class Road {
-    Junction* _startingJunction;
-    Junction* _endJunction;
+    Junction _startingJunction;
+    Junction _endJunction;
     int _length;
     int _baseSpeed;
     int _noOfCars;
