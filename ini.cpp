@@ -20,6 +20,8 @@
 #include <boost/property_tree/ini_parser.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/lexical_cast.hpp>
+#include <boost/algorithm/string.hpp>
+
 using namespace std;
 int terminationTime;
 int MAX_SPEED;
@@ -171,7 +173,13 @@ std::map<int, vector<Event*>> IniClass::readEvents() const{
         }
         if(type=="car_arrival"){
             std::map<int, Road*> roadPlanMap;
-            int j=0;
+            
+            std::vector<std::string> roadPlanJunctions;
+            boost::split(roadPlanJunctions,roadPlan,boost::is_any_of(","));
+            for(auto&rpJunc:roadPlanJunctions){
+                cout<<rpJunc<<endl;
+            } // need to update roadPlanMap with roads
+            /*int j=0;
             for(int i=0;i<roadPlan.length();i++){
                 Junction* jun1=junctionsMap[roadPlan. substr(0,2)];
                 Junction* jun2=junctionsMap[roadPlan.substr(3,4)];
@@ -181,7 +189,7 @@ std::map<int, vector<Event*>> IniClass::readEvents() const{
                 roadPlanMap.insert(std::pair<int, Road*>(j,&road));
                 i=+3;
                 j++;
-            }
+            }*/
             Event *carArrivel=new AddCarEvent(stoi(time),carId, roadPlanMap);
             eventsMap[stoi(time)].push_back(carArrivel);//maybe we need to init the inner vector
         }
