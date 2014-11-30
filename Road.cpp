@@ -67,10 +67,20 @@ void Road::addCarToWaitingList(Car* car) {
     _waitingForGreenLightList.push(car);
 }
 
-void Road::removeCarFromWaitingList() {
-    _waitingForGreenLightList.front()->setNextRoad();
+int Road::removeCarFromWaitingList() {
+    int i=0;
+    if(_waitingForGreenLightList.front()->setNextRoad()==1){
+        i=1;
+    }
     _waitingForGreenLightList.pop();
+    return i;
+    
 }
+
+Car* Road::getCarToRemove() {
+    return _carToRemove;
+}
+
 
 void Road::addFaultyCar(Car& car) {
 

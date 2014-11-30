@@ -25,6 +25,7 @@ class Road {
     int _timeSlice;
     std::queue<Car*> _waitingForGreenLightList;
     int _numOfWaitingCars;
+    Car* _carToRemove;
     
 public:
     Road();
@@ -41,11 +42,12 @@ public:
     std::map<int,std::vector<Car*>> getFaultyCarsOnRoadMap();
     int getBaseSpeed();
     void addCarToWaitingList(Car* car);
-    void removeCarFromWaitingList();
+    int removeCarFromWaitingList();
     int getTimeSlice();
     void setNumOfWaitingCars();
     int getNumOfWaitingCars();
     void setTimeSlice(int time);
+    Car* getCarToRemove();
 
     
 };

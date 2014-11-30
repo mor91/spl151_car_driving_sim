@@ -29,7 +29,7 @@ public:
     Junction(const std::string &junctionID);
     virtual ~Junction();
     std::string getId();
-    void setGreenForIncomingJunction();
+    std::string setGreenForIncomingJunction();
     void setTime(int time);
     void setConsts(int const DEFAULT_TIME_SLICE,int const MAX_TIME_SLICE , int const MIN_TIME_SLICE);
     void setInComingRoads(Road &road);

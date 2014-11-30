@@ -67,8 +67,10 @@ int main(int argc, char** argv) {
             car.second->advanceCar(time);
         }
         for(auto& junc:junctuons){
-            junc.second->setGreenForIncomingJunction();
+            std::string carToRemove=junc.second->setGreenForIncomingJunction();
+            cars.erase(carToRemove);
         }
+        
         time++;
     }
    

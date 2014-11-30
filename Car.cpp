@@ -88,12 +88,13 @@ void Car::setCurrentRoad(Road* road) {
     _currentRoad=road;
 }
 
-void Car::setNextRoad() {
-    if(_currentRoadNumber<_roadPlan.size()){
+int Car::setNextRoad() {
+    if(_currentRoadNumber+1<_roadPlan.size()){
         _currentRoad=_roadPlan.find(_currentRoadNumber+1)->second;
+        return 0;//dont remove car from carsmap
     }
     else{
-        //remove car from cars in main
+        return 1;//remove car from carsmap
     }
     
 }

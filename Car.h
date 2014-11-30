@@ -38,7 +38,7 @@ public:
     int getRemainingTimeOfFault();
     std::string getHistory();
     void setCurrentRoad(Road* road);
-    void setNextRoad();
+    int setNextRoad();
     
 };
 

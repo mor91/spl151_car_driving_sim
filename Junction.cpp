@@ -37,7 +37,7 @@ void Junction::setConsts(const int DEFAULT_TIME_SLICE, const int MAX_TIME_SLICE,
 }
 
 
-void Junction::setGreenForIncomingJunction() {
+std::string Junction::setGreenForIncomingJunction() {
     int found=0;
     for(int i=0; i<_inComingRoads.size() && !found;i++){
         if(_inComingRoads[i]->getSJunc().getId().compare(_greenForRoad->getSJunc().getId())==0){
@@ -48,14 +48,16 @@ void Junction::setGreenForIncomingJunction() {
                 _greenForRoad->setTimeSlice(std::min(_greenForRoad->getTimeSlice()+1,_maxTimeSlice));
             if(_greenForRoad->getNumOfWaitingCars()==0)
                 _greenForRoad->setTimeSlice(std::min(_greenForRoad->getTimeSlice()-1, _minTimeSlice));
-            _greenForRoad=_inComingRoads[i+1];
+            if(i+1==_inComingRoads.size())
+                _greenForRoad=_inComingRoads[0];
             _currentTimeSlice=0;
             _greenForRoad->setNumOfWaitingCars();
         }
     }
     if(_currentTimeSlice<_greenForRoad->getTimeSlice()){
         _currentTimeSlice++;
-        _greenForRoad->removeCarFromWaitingList();
+        if(_greenForRoad->removeCarFromWaitingList()==1)
+            return _greenForRoad->getCarToRemove()->getCarId();
     }
 
 }
