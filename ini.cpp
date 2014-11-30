@@ -173,23 +173,13 @@ std::map<int, vector<Event*>> IniClass::readEvents() const{
         }
         if(type=="car_arrival"){
             std::map<int, Road*> roadPlanMap;
-            
             std::vector<std::string> roadPlanJunctions;
             boost::split(roadPlanJunctions,roadPlan,boost::is_any_of(","));
-            for(auto&rpJunc:roadPlanJunctions){
-                cout<<rpJunc<<endl;
-            } // need to update roadPlanMap with roads
-            /*int j=0;
-            for(int i=0;i<roadPlan.length();i++){
-                Junction* jun1=junctionsMap[roadPlan. substr(0,2)];
-                Junction* jun2=junctionsMap[roadPlan.substr(3,4)];
-                    Road road=Road(roadMap[jun1->getId()][jun2->getId()]->getSJunc(),
-                    roadMap[jun1->getId()][jun2->getId()]->getEJunc(),
-                    roadMap[jun1->getId()][jun2->getId()]->getLen());
-                roadPlanMap.insert(std::pair<int, Road*>(j,&road));
-                i=+3;
-                j++;
-            }*/
+            for(int i=0; i<roadPlanJunctions.size()-1; i++){
+                cout<<roadPlanJunctions[i]<<endl;
+                        roadPlanMap.insert(std::pair<int, Road*>(i,roadMap.find(roadPlanJunctions[i])->second.find(roadPlanJunctions[i+1])->second));
+                    }
+             
             Event *carArrivel=new AddCarEvent(stoi(time),carId, roadPlanMap);
             eventsMap[stoi(time)].push_back(carArrivel);//maybe we need to init the inner vector
         }
