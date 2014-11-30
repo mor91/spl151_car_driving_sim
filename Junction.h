@@ -9,6 +9,7 @@
 #define	JUNCTION_H
 #include <string>
 #include <vector>
+
 //#include "Road.h"
 
 class Road;
@@ -34,6 +35,8 @@ public:
     void setConsts(int const DEFAULT_TIME_SLICE,int const MAX_TIME_SLICE , int const MIN_TIME_SLICE);
     void setInComingRoads(Road &road);
     int getTimeSlice();
+    std::vector<Road*> getInComingRoads();
+    int getCurrentTimeSlice();
     
 
     

@@ -70,4 +70,10 @@ int Junction::getTimeSlice() {
     return _defaultTimeSlice;
 }
 
+std::vector<Road*> Junction::getInComingRoads() {
+    return _inComingRoads;
+}
 
+int Junction::getCurrentTimeSlice() {
+    return _currentTimeSlice;
+}

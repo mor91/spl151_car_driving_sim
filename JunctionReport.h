@@ -13,6 +13,7 @@
 #include "Report.h"
 #include "Junction.h"
 #include <vector>
+#include <map>
 
 
 class JunctionReport:public Report {
@@ -21,6 +22,7 @@ class JunctionReport:public Report {
     std::vector<std::string> _inComingJunctionID;
     int _time;
     std::string reportId;
+    std::map<std::string,std::string> _junctionsWaitingCars;
 public:
     JunctionReport();
     JunctionReport(Junction &junction, int time);

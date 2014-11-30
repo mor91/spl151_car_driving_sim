@@ -28,7 +28,7 @@ RoadReport::RoadReport(const std::string &startJunction, const std::string &endJ
 RoadReport::~RoadReport() {
 }
 void RoadReport::writeReport(){
-    Road* road=_roadMap->find(&_startJunction)->second.find(&_endJunction)->second;
+    Road* road=_roadMap->find(_startJunction.getId())->second.find(_endJunction.getId())->second;
     for(auto& car: *_cars){
         if(car.second->getCurrentRoad()->getSJunc().getId().compare(road->getSJunc().getId())&&car.second->getCurrentRoad()->getEJunc().getId().compare(road->getEJunc().getId())){
            _carsList=_carsList.append("(").append(car.second->getCarId()).append(",").append(std::to_string(car.second->getDistanceFromBeginningOfRoad())).append(")");

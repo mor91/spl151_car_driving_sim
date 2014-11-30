@@ -102,6 +102,9 @@ void Road::setTimeSlice(int time) {
     _timeSlice=time;
 }
 
+std::queue<Car*> Road::getWaitingList() {
+    return _waitingForGreenLightList;
+}
 
 
 

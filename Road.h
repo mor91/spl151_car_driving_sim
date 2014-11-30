@@ -48,6 +48,7 @@ public:
     int getNumOfWaitingCars();
     void setTimeSlice(int time);
     Car* getCarToRemove();
+    std::queue<Car*> getWaitingList();
 
     
 };
