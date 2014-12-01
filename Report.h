@@ -28,6 +28,7 @@ public:
     void setCars(std::map<std::string, Car*> &cars);
     void setJunctions(std::map<std::string, Junction*> &junctions);
     void setRoadMap(std::map<std::string, std::map<std::string, Road*>> &roadMap);
+    void writeReports();
 private:
     
 

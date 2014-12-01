@@ -26,6 +26,7 @@
 
 using namespace std;
 
+
 int main(int argc, char** argv) {    
     IniClass a;
     a.readConfiguration();
@@ -40,16 +41,19 @@ int main(int argc, char** argv) {
     std::map<int, std::vector<Event*>> eventsMap=a.readEvents();
     std::map<std::string, Car*> cars;//get on implementation time of CarArrivalEvent
     std::map<std::string, Junction*> junctuons=a.getJunctionsMap();
+    int const TERMINATION=a.getTerminationTime();
     
     int time=0;
     int simulationRunning=1;
     Report* rep=new CarReport();
     rep->setJunctions(junctuons);
     rep->setRoadMap(roadMap);
-    Junction* junc=new Junction();
+    Junction* junc=new Junction;
+    CarFaultEvent* carFaulty = new CarFaultEvent();
     junc->setConsts(DEFAULT_TIME_SLICE,MAX_TIME_SLICE,MIN_TIME_SLICE);
     
     while(simulationRunning){
+        carFaulty->setCarsMap(cars);
         junc->setTime(time);
         if(eventsMap.find(time)!=eventsMap.end()){
             for(auto& event:eventsMap[time]){
@@ -72,6 +76,10 @@ int main(int argc, char** argv) {
         }
         
         time++;
+        if(time==TERMINATION){
+            simulationRunning=0;
+        }
+        //if()//check if all cars finished their trip if so stop running
     }
    
         

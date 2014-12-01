@@ -15,11 +15,13 @@ class CarFaultEvent : public Event{
     int _time;
     Car* _car;
     int _timeOfFault;
+    std::map<std::string, Car*> _carsMap;
 public:
     CarFaultEvent();
-    CarFaultEvent(int time, const Car &car, int timeOfFault);
+    CarFaultEvent(int time, const std::string carId, int timeOfFault);
     virtual ~CarFaultEvent();
     void performEvent();
+    void setCarsMap(std::map<std::string, Car*> &carsMap);
 
 private:
      

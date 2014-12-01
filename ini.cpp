@@ -31,6 +31,7 @@ int MIN_TIME_SLICE;
 std::map<std::string, Junction*> junctionsMap;
 std::map<std::string, std::map<std::string,Road*>> roadMap;
 std::map<std::string, Car*> carsMap;
+int carCounter=0;
 
 IniClass::IniClass(){}
  
@@ -179,13 +180,13 @@ std::map<int, vector<Event*>> IniClass::readEvents() const{
                 cout<<roadPlanJunctions[i]<<endl;
                         roadPlanMap.insert(std::pair<int, Road*>(i,roadMap.find(roadPlanJunctions[i])->second.find(roadPlanJunctions[i+1])->second));
                     }
-             
+            carCounter++;
             Event *carArrivel=new AddCarEvent(stoi(time),carId, roadPlanMap);
             eventsMap[stoi(time)].push_back(carArrivel);//maybe we need to init the inner vector
         }
         if(type=="car_fault"){
-            Car* car=carsMap.find(carId)->second;
-            Event *carFault=new CarFaultEvent(stoi(time), *car ,stoi(timeOfFault) );
+            //Car* car=carsMap.find(carId)->second;
+            Event *carFault=new CarFaultEvent(stoi(time), carId ,stoi(timeOfFault) );
             eventsMap[stoi(time)].push_back(carFault);///maybe we need to init the inner vector
         } 
         
@@ -227,4 +228,8 @@ void IniClass::setCarMap(std::map<std::string,Car*> cars){
     carsMap=cars;
     
 }
- 
+
+int IniClass::getCarCounter() {
+    return carCounter;
+}
+

@@ -13,9 +13,9 @@
 CarFaultEvent::CarFaultEvent() {
 }
 
-CarFaultEvent::CarFaultEvent(int time, const Car &car, int timeOfFault) {
+CarFaultEvent::CarFaultEvent(int time, const std::string carId, int timeOfFault) {
     _time=time;
-    *_car=car;
+    //*_car=car;
     _timeOfFault=timeOfFault;
 }
 
@@ -27,5 +27,8 @@ void CarFaultEvent::performEvent(){
     _car->setRemainingTimeToFault(_timeOfFault);
 }
 
+void CarFaultEvent::setCarsMap(std::map<std::string, Car*>& carsMap) {
+    _carsMap=carsMap;
+}
 
 

@@ -36,6 +36,7 @@ public:
     int getTerminationTime();
     std::map<std::string, Junction*> getJunctionsMap();
     void setCarMap(std::map<std::string, Car*> cars);
+    int getCarCounter();
 };
  
 #endif /* INI_H_ */
