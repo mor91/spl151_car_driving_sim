@@ -35,6 +35,7 @@ int main(int argc, char** argv) {
     int const DEFAULT_TIME_SLICE=a.getDefaultTimeSlice();
     int const MAX_TIME_SLICE=a.getMaxTimeSlice();
     int const MIN_TIME_SLICE=a.getMinTimeSlice();
+    int finishedCarsCounter=0;
     
     std::map<std::string, std::map<std::string,Road*>> roadMap=a.readRoadMap();
     std::map<int, std::vector<Report*>> reportsMap=a.readCommands();
@@ -51,13 +52,14 @@ int main(int argc, char** argv) {
     Junction* junc=new Junction;
     CarFaultEvent* carFaulty = new CarFaultEvent();
     junc->setConsts(DEFAULT_TIME_SLICE,MAX_TIME_SLICE,MIN_TIME_SLICE);
+    int carArrivalCounter=a.getCarCounter();
     
     while(simulationRunning){
         carFaulty->setCarsMap(cars);
         junc->setTime(time);
         if(eventsMap.find(time)!=eventsMap.end()){
             for(auto& event:eventsMap[time]){
-               a.setCarMap(cars);
+               //a.setCarMap(cars);
                event->performEvent();
             }
         } 
@@ -73,13 +75,13 @@ int main(int argc, char** argv) {
         for(auto& junc:junctuons){
             std::string carToRemove=junc.second->setGreenForIncomingJunction();
             cars.erase(carToRemove);
+            finishedCarsCounter++;
         }
         
         time++;
-        if(time==TERMINATION){
+        if(time==TERMINATION || finishedCarsCounter== carArrivalCounter){
             simulationRunning=0;
         }
-        //if()//check if all cars finished their trip if so stop running
     }
    
         
