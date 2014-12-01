@@ -141,62 +141,64 @@ std::map<int, std::vector<Report*>> IniClass::readCommands() const{
     return reportMap;
     
 }
-std::map<int, vector<Event*>> IniClass::readEvents() const{
-   cout << "Starting readEvents" << endl;
+
+std::map<int, vector<Event*>> IniClass::readEvents() const {
+    cout << "Starting readEvents" << endl;
     boost::property_tree::ptree pt;
     boost::property_tree::ini_parser::read_ini("Events.ini", pt);
-    std::map<int, std::vector<Event*>> eventsMap;
-    for (auto& section : pt)
-     {
+    std::map<int, std::vector < Event*>> eventsMap;
+    for (auto& section : pt) {
         std::string type;
         std::string time;
         std::string carId;
         std::string roadPlan;
         std::string timeOfFault;
-        
-    
+
+
         std::cout << '[' << section.first << "]\n";
-        for (auto& key : section.second)
-        {
+        for (auto& key : section.second) {
             std::cout << key.first << "=" << key.second.get_value<std::string>() << "\n";
-            if(key.first=="type")
-                type=key.second.get_value<std::string>();
-            if(key.first=="time")
-                time=key.second.get_value<std::string>();
-            if(key.first=="carId")
-                carId=key.second.get_value<std::string>();
-            if(key.first=="roadPlan")
-                roadPlan=key.second.get_value<std::string>();
-            if(key.first=="timeOfFault")
-                timeOfFault=key.second.get_value<std::string>();
-          
+            if (key.first == "type")
+                type = key.second.get_value<std::string>();
+            if (key.first == "time")
+                time = key.second.get_value<std::string>();
+            if (key.first == "carId")
+                carId = key.second.get_value<std::string>();
+            if (key.first == "roadPlan")
+                roadPlan = key.second.get_value<std::string>();
+            if (key.first == "timeOfFault")
+                timeOfFault = key.second.get_value<std::string>();
+
         }
-        if(type=="car_arrival"){
+        if (type == "car_arrival") {
             std::map<int, Road*> roadPlanMap;
             std::vector<std::string> roadPlanJunctions;
-            boost::split(roadPlanJunctions,roadPlan,boost::is_any_of(","));
-            for(int i=0; i<roadPlanJunctions.size()-1; i++){
-                cout<<roadPlanJunctions[i]<<endl;
-                        roadPlanMap.insert(std::pair<int, Road*>(i,roadMap.find(roadPlanJunctions[i])->second.find(roadPlanJunctions[i+1])->second));
-                    }
-             
-            Event *carArrivel=new AddCarEvent(stoi(time),carId, roadPlanMap);
-            eventsMap[stoi(time)].push_back(carArrivel);//maybe we need to init the inner vector
+            boost::split(roadPlanJunctions, roadPlan, boost::is_any_of(","));
+            for (int i = 0; i < roadPlanJunctions.size() - 1; i++) {
+                cout << roadPlanJunctions[i] << endl;
+                roadPlanMap.insert(std::pair<int, Road*>(i, roadMap.find(roadPlanJunctions[i])->second.find(roadPlanJunctions[i + 1])->second));
+            }
+
+            Event *carArrivel = new AddCarEvent(stoi(time), carId, roadPlanMap);
+            eventsMap[stoi(time)].push_back(carArrivel); //maybe we need to init the inner vector
         }
-        if(type=="car_fault"){
-            Car* car=carsMap.find(carId)->second;
-            Event *carFault=new CarFaultEvent(stoi(time), *car ,stoi(timeOfFault) );
-            eventsMap[stoi(time)].push_back(carFault);///maybe we need to init the inner vector
-        } 
-        
-        
-        
-     }
-           
+        if (type == "car_fault") {
+            Car* car = carsMap.find(carId)->second;
+            Event *carFault = new CarFaultEvent(stoi(time), *car, stoi(timeOfFault));
+            eventsMap[stoi(time)].push_back(carFault); ///maybe we need to init the inner vector
+        }
+
+        //CarFaultEvent(stoi(time), *car ,stoi(timeOfFault) );
+        //eventsMap[stoi(time)].push_back(carFault);///maybe we need to init the inner vector
+    }
+
     return eventsMap;
+}
+           
+    
 
  
-}
+
 void IniClass::writeReports(Report &report) const{
    /* boost::property_tree::ptree pt;
     pt.p
