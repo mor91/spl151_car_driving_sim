@@ -26,6 +26,7 @@ class Road {
     std::queue<Car*> _waitingForGreenLightList;
     int _numOfWaitingCars;
     Car* _carToRemove;
+    std::string _WaitingCarList;
     
 public:
     Road();
@@ -49,6 +50,7 @@ public:
     void setTimeSlice(int time);
     Car* getCarToRemove();
     std::queue<Car*> getWaitingList();
+    std::string getWaitingCarList();
 
     
 };

@@ -16,16 +16,18 @@ class Road;
 
 class Junction {
     std::string _junctionID;
-    Road* _greenForRoad;
+    
     int _currentTime;
     int _defaultTimeSlice;
     int _maxTimeSlice;
     int _minTimeSlice;
-    std::vector<Road*> _inComingRoads;
+    
     int _currentTimeSlice;
  
 
 public:
+    Road* _greenForRoad;
+    std::vector<Road*> _inComingRoads;
     Junction();
     Junction(const std::string &junctionID);
     virtual ~Junction();
