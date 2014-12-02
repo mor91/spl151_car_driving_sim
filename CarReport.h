@@ -17,13 +17,18 @@ class CarReport:public Report {
     int _faultyTimeLeft;
     std::string _reportId;
     int _timeOfReport;
+    std::string _type;
 public:
     CarReport();
-    CarReport(std::string &carID, std::string &reportId, int timeOfReport);
+    CarReport(std::string &carID, int timeOfReport ,std::string& typeOfReport, std::string  &reportId);
     CarReport(const std::string &carID, const std::string &history,int faultyTimeLeft);
     void writeReport();
     virtual ~CarReport();
-    
+    std::string getReportId();
+    std::string getReportType();
+    std::string getCarId();
+    std::string getHistory();
+    std::string getFaultyTimeLeft();
 private:
 
 };

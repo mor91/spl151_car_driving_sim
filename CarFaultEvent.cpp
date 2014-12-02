@@ -13,7 +13,7 @@
 CarFaultEvent::CarFaultEvent() {
 }
 
-CarFaultEvent::CarFaultEvent(int time, const std::string carId, int timeOfFault) {
+CarFaultEvent::CarFaultEvent(int time, const std::string carId, int timeOfFault ) {
     _time=time;
     //*_car=car;
     _timeOfFault=timeOfFault;

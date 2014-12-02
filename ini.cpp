@@ -122,16 +122,16 @@ std::map<int, std::vector<Report*>> IniClass::readCommands() const{
            terminationTime=stoi(time);
         }    
         if(type=="car_report"){
-           Report *carReport=new CarReport(carId, id, stoi(time));
+           Report *carReport=new CarReport(carId, stoi(time), type,id);
            reportMap[stoi(time)].push_back(carReport);
         }
         if(type=="road_report"){
-            Report *roadReport=new RoadReport(startJunction, endJunction, stoi(time));
+            Report *roadReport=new RoadReport(startJunction, endJunction, stoi(time),type,id);
             reportMap[stoi(time)].push_back(roadReport);
         }
         if(type=="junction_report"){
             Junction junction(junctionId);
-            Report *junctionReport=new JunctionReport(junction, stoi(time));
+            Report *junctionReport=new JunctionReport(junction, stoi(time), type, id);
             reportMap[stoi(time)].push_back(junctionReport);
         }
             

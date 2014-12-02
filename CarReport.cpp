@@ -11,13 +11,14 @@
 CarReport::CarReport() {
     
 }
-CarReport::CarReport(std::string &carID,std::string &reportId, int timeOfReport){
+CarReport::CarReport(std::string &carID, int timeOfReport,std::string &typeOfReport, std::string  &reportId){
     _carID=carID;
     _reportId=reportId;
     _timeOfReport=timeOfReport;
+    _type=typeOfReport;
 }
 
-CarReport::CarReport(const std::string &carID, const std::string &history,int faultyTimeLeft) {
+CarReport::CarReport(const std::string &carID, const std::string &history,int faultyTimeLeft ) {
         _carID=carID;
         _history=history;
         _faultyTimeLeft=faultyTimeLeft;
@@ -34,6 +35,26 @@ void CarReport::writeReport(){
     
 }
 
+std::string CarReport::getReportId() {
+    return _reportId;
+            
+}
+
+std::string CarReport::getReportType() {
+    return _type;
+}
+
+std::string CarReport::getCarId() {
+    return _carID;
+}
+
+std::string CarReport::getFaultyTimeLeft() {
+    return std::to_string(_faultyTimeLeft);
+}
+
+std::string CarReport::getHistory() {
+    return _history;
+}
 
 
 

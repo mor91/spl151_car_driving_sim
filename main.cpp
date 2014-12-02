@@ -23,6 +23,10 @@
 #include "Road.h"
 #include "RoadReport.h"
 #include <typeinfo>
+#include <boost/property_tree/ini_parser.hpp>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/lexical_cast.hpp>
+#include <boost/algorithm/string.hpp>
 
 using namespace std;
 
@@ -53,6 +57,7 @@ int main(int argc, char** argv) {
     CarFaultEvent* carFaulty = new CarFaultEvent();
     junc->setConsts(DEFAULT_TIME_SLICE,MAX_TIME_SLICE,MIN_TIME_SLICE);
     int carArrivalCounter=a.getCarCounter();
+    boost::property_tree::ptree pt;
     
     while(simulationRunning){
         carFaulty->setCarsMap(cars);
@@ -65,6 +70,7 @@ int main(int argc, char** argv) {
         } 
         if(reportsMap.find(time)!=reportsMap.end()){
             for(auto& report:reportsMap[time]){
+                //rep->setPtTree(pt);
                 rep->setCars(cars);
                 report->writeReport();
             }

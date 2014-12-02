@@ -14,10 +14,11 @@
 JunctionReport::JunctionReport() {
 }
 
-JunctionReport::JunctionReport(Junction &junction, int time){
+JunctionReport::JunctionReport(Junction &junction, int time,std::string& typeOfReport, std::string  &reportId){
     _junction= junction;
     _time=time;
-    
+    _reportId=reportId;
+    _type=typeOfReport;
 }
 
 JunctionReport::JunctionReport(const Junction &junction, const std::string &timeSlices, const std::vector<std::string> &inComingJunctionID ) {
@@ -44,3 +45,23 @@ void JunctionReport::writeReport(){
     _reoprts.push_back(this);
 }
 
+std::string JunctionReport::getReportId() {
+    return _reportId;
+            
+}
+
+std::string JunctionReport::getReportType() {
+    return _type;
+}
+
+std::vector<std::string> JunctionReport::getInComingJunctions() {
+    return _inComingJunctionID;
+}
+
+std::string JunctionReport::getJunctionId() {
+    return _junction.getId();
+}
+
+std::string JunctionReport::getTimeSlices() {
+    return _timeSlices;
+}

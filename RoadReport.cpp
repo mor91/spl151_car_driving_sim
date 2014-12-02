@@ -13,10 +13,12 @@
 #include <iostream>
 RoadReport::RoadReport() {
 }
-RoadReport::RoadReport(std::string startJunction, std::string endJunction, int time){
+RoadReport::RoadReport(std::string &startJunction, std::string &endJunction, int time,std::string &typeOfReport, std::string & reportId){
     _startJunction=startJunction;
     _endJunction=endJunction;
     _time=time;
+    _reportId=reportId;
+    _type=typeOfReport;
 }
 
 RoadReport::RoadReport(const std::string &startJunction, const std::string &endJunction, const std::string &carsList) {
@@ -40,3 +42,10 @@ void RoadReport::writeReport(){
     _reoprts.push_back(this);
 }
 
+std::string RoadReport::getReportId() {
+    return _reportId;
+}
+
+std::string RoadReport::getReportType() {
+    return _type;
+}

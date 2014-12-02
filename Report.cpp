@@ -36,7 +36,21 @@ void Report::setRoadMap(std::map<std::string, std::map<std::string, Road*>> &roa
 }
 
 void Report::writeReports() {
-    
+    boost::property_tree::ptree pt;
+    for(int i=0; i<_reoprts.size();i++){
+        if(_reoprts[i]->getReportType()=="car_report"){
+           /* std::string carId=_reoprts[i]->getCarId();
+            std::string history=_reoprts[i]->getHistory();
+            std::string faultyTimeLeft=_reoprts[i]->getFaultyTimeLeft*/
+        }
+        if(_reoprts[i]->getReportType()=="road_report"){
+            
+            
+        }
+        if(_reoprts[i]->getReportType()=="junction_report"){
+            
+        }
+    }
 }
 
 
