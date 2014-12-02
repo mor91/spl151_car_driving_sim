@@ -64,7 +64,7 @@ FFLAGS=
 ASFLAGS=
 
 # Link Libraries and Options
-LDLIBSOPTIONS=-L/usr/include/boost
+LDLIBSOPTIONS=
 
 # Build Targets
 .build-conf: ${BUILD_SUBPROJECTS}
@@ -77,67 +77,67 @@ ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/spl151_car_driving_sim: ${OBJECTFILES
 ${OBJECTDIR}/AddCarEvent.o: AddCarEvent.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/boost -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/AddCarEvent.o AddCarEvent.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/AddCarEvent.o AddCarEvent.cpp
 
 ${OBJECTDIR}/Car.o: Car.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/boost -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Car.o Car.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Car.o Car.cpp
 
 ${OBJECTDIR}/CarFaultEvent.o: CarFaultEvent.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/boost -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/CarFaultEvent.o CarFaultEvent.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/CarFaultEvent.o CarFaultEvent.cpp
 
 ${OBJECTDIR}/CarReport.o: CarReport.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/boost -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/CarReport.o CarReport.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/CarReport.o CarReport.cpp
 
 ${OBJECTDIR}/Event.o: Event.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/boost -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Event.o Event.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Event.o Event.cpp
 
 ${OBJECTDIR}/InComingJunction.o: InComingJunction.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/boost -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/InComingJunction.o InComingJunction.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/InComingJunction.o InComingJunction.cpp
 
 ${OBJECTDIR}/Junction.o: Junction.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/boost -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Junction.o Junction.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Junction.o Junction.cpp
 
 ${OBJECTDIR}/JunctionReport.o: JunctionReport.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/boost -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/JunctionReport.o JunctionReport.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/JunctionReport.o JunctionReport.cpp
 
 ${OBJECTDIR}/Report.o: Report.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/boost -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Report.o Report.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Report.o Report.cpp
 
 ${OBJECTDIR}/Road.o: Road.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/boost -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Road.o Road.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Road.o Road.cpp
 
 ${OBJECTDIR}/RoadReport.o: RoadReport.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/boost -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/RoadReport.o RoadReport.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/RoadReport.o RoadReport.cpp
 
 ${OBJECTDIR}/ini.o: ini.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/boost -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ini.o ini.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/ini.o ini.cpp
 
 ${OBJECTDIR}/main.o: main.cpp 
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
-	$(COMPILE.cc) -g -I/usr/include/boost -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
+	$(COMPILE.cc) -g -std=c++11 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/main.o main.cpp
 
 # Subprojects
 .build-subprojects:
