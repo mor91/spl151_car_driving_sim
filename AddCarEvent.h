@@ -24,6 +24,7 @@ public:
     std::string getCarId();
     std::string getRoadPlan();
     int getTime();
+    Car* getCarAdded();
 
 };
 

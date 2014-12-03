@@ -20,6 +20,8 @@ CarFaultEvent::CarFaultEvent(int time, const std::string carId, int timeOfFault 
 }
 
 CarFaultEvent::~CarFaultEvent() {
+        std::cout << "CarFaultEvent deleted"<< std::endl;
+
 }
 
 void CarFaultEvent::performEvent(){

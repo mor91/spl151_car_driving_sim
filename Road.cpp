@@ -26,6 +26,8 @@ Road::Road(const Junction &startingJunction, const Junction &endJunction, int le
 }
 
 Road::~Road() {
+            std::cout << "Road deleted"<< std::endl;
+
 }
 Junction Road::getSJunc(){
     return _startingJunction;

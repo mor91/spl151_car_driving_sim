@@ -10,6 +10,10 @@
 #include <string>
 #include <map>
 #include <iostream>
+#include <boost/property_tree/ini_parser.hpp>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/lexical_cast.hpp>
+#include <boost/algorithm/string.hpp>
 
 JunctionReport::JunctionReport() {
 }
@@ -29,6 +33,8 @@ JunctionReport::JunctionReport(const Junction &junction, const std::string &time
 }
 
 JunctionReport::~JunctionReport() {
+        std::cout << "JunctionReport deleted"<< std::endl;
+
 }
 void JunctionReport::writeReport(){
    std::string carsWaitingList;
@@ -42,7 +48,13 @@ void JunctionReport::writeReport(){
         _timeSlices.append("(").append(std::to_string(junction->_inComingRoads[i]->getTimeSlice())).append(",").append(std::to_string(i)).append(")");
         _junctionsWaitingCars.insert(std::pair<std::string,std::string>(junction->_inComingRoads[i]->getSJunc().getId(),junction->_inComingRoads[i]->getWaitingCarList()));
      }
-    _reoprts.push_back(this);
+    _pt->put(_reportId.append(".junctionId"),_junction.getId());
+    _pt->put(_reportId.append(".timeSlices"), _timeSlices);
+    for(int i=0; i<junction->_inComingRoads.size();i++){
+        std::string juncId=junction->_inComingRoads[i]->getSJunc().getId();
+        std::string carsWaiting=junction->_inComingRoads[i]->getWaitingCarList();
+        _pt->put(_reportId.append(".").append(juncId), carsWaiting);
+    }
 }
 
 std::string JunctionReport::getReportId() {
@@ -64,4 +76,13 @@ std::string JunctionReport::getJunctionId() {
 
 std::string JunctionReport::getTimeSlices() {
     return _timeSlices;
+}
+
+void JunctionReport::setPTree(boost::property_tree::ptree& pt) {
+     *_pt=pt;
+  
+}
+
+boost::property_tree::ptree* JunctionReport::getPTree() {
+    return _pt;
 }

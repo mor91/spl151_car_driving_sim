@@ -20,6 +20,14 @@ Junction::Junction(const std::string &junctionID) {
 }
 
 Junction::~Junction() {
+    // _currentTime;
+    //delete _currentTimeSlice;
+    //delete _greenForRoad;
+    //delete _inComingRoads;
+    //delete _junctionID;
+    //delete _maxTimeSlice;
+    //delete _minTimeSlice;
+    std::cout << "Junction deleted"<< std::endl;
 }
 
 std::string Junction::getId(){

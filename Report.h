@@ -13,11 +13,15 @@
 #include "Car.h"
 #include "Junction.h"
 #include "Road.h"
+#include <boost/property_tree/ini_parser.hpp>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/lexical_cast.hpp>
+#include <boost/algorithm/string.hpp>
 
 class Report {
     std::string _reportID;
+    boost::property_tree::ptree _pt;
 public:
-    std::vector<Report*> _reoprts;
     std::map<std::string, Car*> *_cars;
     std::map<std::string, Junction*> *_junctions;
     std::map<std::string, std::map<std::string, Road*>> *_roadMap;
@@ -31,6 +35,8 @@ public:
     void writeReports();
     virtual std::string getReportId()=0;
     virtual std::string getReportType()=0;
+    virtual void setPTree(boost::property_tree::ptree& pt)=0;
+    virtual boost::property_tree::ptree* getPTree()=0;
 private:
     
 

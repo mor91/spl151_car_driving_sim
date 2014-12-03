@@ -11,6 +11,10 @@
 #include <string>
 #include <map>
 #include <iostream>
+#include <boost/property_tree/ini_parser.hpp>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/lexical_cast.hpp>
+#include <boost/algorithm/string.hpp>
 RoadReport::RoadReport() {
 }
 RoadReport::RoadReport(std::string &startJunction, std::string &endJunction, int time,std::string &typeOfReport, std::string & reportId){
@@ -28,6 +32,8 @@ RoadReport::RoadReport(const std::string &startJunction, const std::string &endJ
 }
 
 RoadReport::~RoadReport() {
+        std::cout << "RoadReport deleted"<< std::endl;
+
 }
 void RoadReport::writeReport(){
     Road* road=_roadMap->find(_startJunction.getId())->second.find(_endJunction.getId())->second;
@@ -39,7 +45,9 @@ void RoadReport::writeReport(){
     }
     _startJunction=road->getSJunc();
     _endJunction=road->getEJunc();
-    _reoprts.push_back(this);
+    _pt->put(_reportId.append(".startJunction"),_startJunction.getId());
+    _pt->put(_reportId.append(".endJunction"),_endJunction.getId());
+    _pt->put(_reportId.append(".cars"),_carsList);
 }
 
 std::string RoadReport::getReportId() {
@@ -48,4 +56,12 @@ std::string RoadReport::getReportId() {
 
 std::string RoadReport::getReportType() {
     return _type;
+}
+
+void RoadReport::setPTree(boost::property_tree::ptree& pt) {
+    *_pt=pt;
+}
+
+boost::property_tree::ptree* RoadReport::getPTree() {
+    return _pt;
 }

@@ -16,6 +16,7 @@ public:
     Event(const std::string &eventID);
     virtual ~Event();
     virtual void performEvent()=0;
+    
 private:
 
 };

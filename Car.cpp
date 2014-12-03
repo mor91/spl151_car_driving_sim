@@ -33,7 +33,8 @@ void Car::newSpeed(){
 }
 
 Car::~Car() {//check that everything is deleted
-    
+        std::cout << "Car deleted"<< std::endl;
+
 }
 
 

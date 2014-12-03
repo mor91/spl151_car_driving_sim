@@ -66,13 +66,16 @@ int main(int argc, char** argv) {
             for(auto& event:eventsMap[time]){
                //a.setCarMap(cars);
                event->performEvent();
+               //add car to cars map
+               
             }
         } 
         if(reportsMap.find(time)!=reportsMap.end()){
             for(auto& report:reportsMap[time]){
-                //rep->setPtTree(pt);
-                rep->setCars(cars);
+                report->setPTree(pt);
+                report->setCars(cars);
                 report->writeReport();
+                //pt=report->getPTree();
             }
         }
         for(auto& car:cars){
@@ -81,6 +84,7 @@ int main(int argc, char** argv) {
         for(auto& junc:junctuons){
             std::string carToRemove=junc.second->setGreenForIncomingJunction();
             cars.erase(carToRemove);
+            cars.find(carToRemove)->second->~Car();
             finishedCarsCounter++;
         }
         
@@ -89,7 +93,31 @@ int main(int argc, char** argv) {
             simulationRunning=0;
         }
     }
-   
+    boost::property_tree::write_ini("Reports", pt);
+    for(auto& key:junctuons){
+        key.second->~Junction();
+    }
+    for(auto& key:roadMap){
+        for(auto& inkey:key.second){
+            inkey.second->~Road();           
+        }
+        
+    }
+    for(auto& key:cars){
+        key.second->~Car();
+    }
+    carFaulty->~CarFaultEvent();
+    for(auto& key:eventsMap){
+        for(auto& inKey:key.second){
+            inKey->~Event();
+        }
+    }
+    junc->~Junction();
+    for(auto& key:reportsMap){
+        for(auto& inkey:key.second){
+           // inkey->
+        }
+    }
         
     
 }

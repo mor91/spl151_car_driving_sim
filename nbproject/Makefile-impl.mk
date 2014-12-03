@@ -24,7 +24,7 @@ CLEAN_SUBPROJECTS=${CLEAN_SUBPROJECTS_${SUBPROJECTS}}
 
 
 # Project Name
-PROJECTNAME=spl151_car_driving_sim
+PROJECTNAME=CarDrivingSimulator
 
 # Active Configuration
 DEFAULTCONF=Debug

@@ -14,6 +14,10 @@
 #include "Junction.h"
 #include <vector>
 #include <map>
+#include <boost/property_tree/ini_parser.hpp>
+#include <boost/property_tree/ptree.hpp>
+#include <boost/lexical_cast.hpp>
+#include <boost/algorithm/string.hpp>
 
 
 class JunctionReport:public Report {
@@ -24,6 +28,7 @@ class JunctionReport:public Report {
     std::string _reportId;
     std::map<std::string,std::string> _junctionsWaitingCars;
     std::string _type;
+    boost::property_tree::ptree* _pt;
 public:
     JunctionReport();
     JunctionReport(Junction &junction, int time,std::string &typeOfReport, std::string  &reportId);
@@ -35,6 +40,11 @@ public:
     std::string getJunctionId();
     std::string getTimeSlices();
     std::vector <std::string> getInComingJunctions();
+
+    virtual void setPTree(boost::property_tree::ptree& pt);
+
+    virtual boost::property_tree::ptree* getPTree();
+
 
 };
 

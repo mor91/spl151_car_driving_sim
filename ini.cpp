@@ -35,7 +35,10 @@ int carCounter=0;
 
 IniClass::IniClass(){}
  
-IniClass::~IniClass() {}
+IniClass::~IniClass() {
+        std::cout << "IniClass deleted"<< std::endl;
+
+}
  
 void IniClass::readConfiguration() const{
   cout << "Starting readConfiguration" << endl;

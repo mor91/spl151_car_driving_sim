@@ -7,6 +7,9 @@
 
 #include "Report.h"
 #include "ini.h"
+#include <map>
+#include <vector>
+#include <string>
 #include <boost/property_tree/ini_parser.hpp>
 #include <boost/property_tree/ptree.hpp>
 #include <boost/lexical_cast.hpp>
@@ -21,6 +24,22 @@ Report::Report(const std::string &reportID) {
 }
 
 Report::~Report() {
+    /*(auto& key:_cars){
+        delete key.second;
+        delete key.first;
+    }
+    for(auto& key:_junctions){
+        delete key.second;
+        delete key.first;
+    }
+    for(auto& key:_roadMap){
+        for(auto inKey:key.second){
+            delete inKey.second;
+            delete inKey.first;    
+        }
+        delete key;
+    }*/
+        std::cout << "Report deleted"<< std::endl;
 }
 
 void Report::setCars(std::map<std::string, Car*> &cars) {
@@ -36,12 +55,12 @@ void Report::setRoadMap(std::map<std::string, std::map<std::string, Road*>> &roa
 }
 
 void Report::writeReports() {
-    boost::property_tree::ptree pt;
-    for(int i=0; i<_reoprts.size();i++){
+    
+    /*for(int i=0; i<_reoprts.size();i++){
         if(_reoprts[i]->getReportType()=="car_report"){
-           /* std::string carId=_reoprts[i]->getCarId();
+           std::string carId=_reoprts[i]->getCarId();
             std::string history=_reoprts[i]->getHistory();
-            std::string faultyTimeLeft=_reoprts[i]->getFaultyTimeLeft*/
+            std::string faultyTimeLeft=_reoprts[i]->getFaultyTimeLeft
         }
         if(_reoprts[i]->getReportType()=="road_report"){
             
@@ -50,7 +69,7 @@ void Report::writeReports() {
         if(_reoprts[i]->getReportType()=="junction_report"){
             
         }
-    }
+    }*/
 }
 
 

@@ -23,7 +23,8 @@ AddCarEvent::AddCarEvent(int time, std::string const &carID ,std::map<int, Road*
 }
 
 AddCarEvent::~AddCarEvent() {
-    
+        std::cout << "AddCarEvent deleted"<< std::endl;
+
 }
 
 void AddCarEvent::performEvent(){

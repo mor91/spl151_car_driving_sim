@@ -6,6 +6,7 @@
  */
 
 #include "Event.h"
+#include <iostream>
 
 Event::Event() {
 }
@@ -15,6 +16,8 @@ Event::Event(const std::string &eventID) {
 }
 
 Event::~Event() {
+        std::cout << "Event deleted"<< std::endl;
+
 }
 
 
