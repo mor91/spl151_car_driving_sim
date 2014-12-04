@@ -25,17 +25,15 @@ public:
     IniClass();
     virtual ~IniClass();
     void readConfiguration() const;
-    std::map<std::string, std::map<std::string,Road*>> readRoadMap() const;
-    std::map<int, std::vector<Report*>> readCommands() const;
-    std::map<int, vector<Event*>> readEvents() const;
+    void readRoadMap(std::map<std::string, std::map<std::string,Road*>> &roadMap,std::map<std::string, Junction*> &junctionsMap) const;
+    void readCommands(boost::property_tree::ptree &pt,std::map<std::string, Car*> &cars, std::map<int, std::vector<Report*>> &reportsMap ,std::map<std::string, std::map<std::string,Road*>> &roadMap ,std::map<std::string, Junction*> &junctionsMap) const;
+    void readEvents(std::map<std::string, Car*> &cars,std::map<int, std::vector<Event*>> &eventsMap,std::map<std::string, std::map<std::string,Road*>> &roadMap) const;
     void writeReports(Report &report) const;
     int getMaxSpeed();
     int getDefaultTimeSlice();
     int getMaxTimeSlice();
     int getMinTimeSlice();
     int getTerminationTime();
-    std::map<std::string, Junction*> getJunctionsMap();
-    void setCarMap(std::map<std::string, Car*> cars);
     int getCarCounter();
 };
  

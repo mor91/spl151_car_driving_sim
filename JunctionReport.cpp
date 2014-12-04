@@ -18,11 +18,14 @@
 JunctionReport::JunctionReport() {
 }
 
-JunctionReport::JunctionReport(Junction &junction, int time,std::string& typeOfReport, std::string  &reportId){
+JunctionReport::JunctionReport(Junction &junction, int time,std::string& typeOfReport, std::string  &reportId,boost::property_tree::ptree &pt,std::map<std::string, Car*> &cars,std::map<std::string, Junction*> &junctionsMap){
     _junction= junction;
     _time=time;
     _reportId=reportId;
     _type=typeOfReport;
+    *_cars=cars;
+    *_junctionsMap=junctionsMap;
+    *_pt=pt;
 }
 
 JunctionReport::JunctionReport(const Junction &junction, const std::string &timeSlices, const std::vector<std::string> &inComingJunctionID ) {
@@ -38,7 +41,7 @@ JunctionReport::~JunctionReport() {
 }
 void JunctionReport::writeReport(){
    std::string carsWaitingList;
-    Junction* junction=_junctions->find(_junction.getId())->second;
+    Junction* junction=_junctionsMap->find(_junction.getId())->second;
     int i=0;
     for(int i=0; i<junction->_inComingRoads.size();i++){
         i=0;

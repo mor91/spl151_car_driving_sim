@@ -22,9 +22,6 @@ class Report {
     std::string _reportID;
     boost::property_tree::ptree _pt;
 public:
-    std::map<std::string, Car*> *_cars;
-    std::map<std::string, Junction*> *_junctions;
-    std::map<std::string, std::map<std::string, Road*>> *_roadMap;
     Report();
     Report(const std::string &reportID);
     virtual ~Report();

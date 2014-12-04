@@ -13,9 +13,10 @@
 CarFaultEvent::CarFaultEvent() {
 }
 
-CarFaultEvent::CarFaultEvent(int time, const std::string carId, int timeOfFault ) {
+CarFaultEvent::CarFaultEvent(int time, const std::string carId, int timeOfFault,std::map<std::string, Car*> &cars) {
     _time=time;
-    //*_car=car;
+    _carsMap=cars;
+    _car=_carsMap.find(carId)->second;
     _timeOfFault=timeOfFault;
 }
 
@@ -25,12 +26,10 @@ CarFaultEvent::~CarFaultEvent() {
 }
 
 void CarFaultEvent::performEvent(){
-    //_car->getCurrentRoad()->addFaultyCar(*_car);
+    _car->getCurrentRoad()->addFaultyCar(*_car);
     _car->setRemainingTimeToFault(_timeOfFault);
 }
 
-void CarFaultEvent::setCarsMap(std::map<std::string, Car*>& carsMap) {
-    _carsMap=carsMap;
-}
+
 
 

@@ -15,11 +15,13 @@
 CarReport::CarReport() {
     
 }
-CarReport::CarReport(std::string &carID, int timeOfReport,std::string &typeOfReport, std::string  &reportId){
+CarReport::CarReport(std::string &carID, int timeOfReport,std::string &typeOfReport, std::string  &reportId,boost::property_tree::ptree &pt,std::map<std::string, Car*> &cars){
     _carID=carID;
     _reportId=reportId;
     _timeOfReport=timeOfReport;
     _type=typeOfReport;
+    *_cars=cars;
+    *_pt=pt;
 }
 
 CarReport::CarReport(const std::string &carID, const std::string &history,int faultyTimeLeft ) {

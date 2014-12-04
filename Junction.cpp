@@ -13,10 +13,12 @@
 Junction::Junction() {
 }
 
-Junction::Junction(const std::string &junctionID) {
+Junction::Junction(const std::string& junctionID, int defaultTimeSlice, int maxTimeSlice, int minTimeSlice) {
     _junctionID=junctionID;
     _currentTimeSlice=0;
-    
+    _defaultTimeSlice=defaultTimeSlice;
+    _maxTimeSlice=maxTimeSlice;
+    _minTimeSlice=minTimeSlice;
 }
 
 Junction::~Junction() {
@@ -32,16 +34,6 @@ Junction::~Junction() {
 
 std::string Junction::getId(){
     return _junctionID;
-}
-
-void Junction::setTime(int time) {
-    _currentTime=time;
-}
-
-void Junction::setConsts(const int DEFAULT_TIME_SLICE, const int MAX_TIME_SLICE, const int MIN_TIME_SLICE) {
-    _defaultTimeSlice=DEFAULT_TIME_SLICE;
-    _maxTimeSlice=MAX_TIME_SLICE;
-    _minTimeSlice=MIN_TIME_SLICE;
 }
 
 

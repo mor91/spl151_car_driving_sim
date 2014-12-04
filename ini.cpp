@@ -28,9 +28,6 @@ int MAX_SPEED;
 int DEFAULT_TIME_SLICE;
 int MAX_TIME_SLICE;
 int MIN_TIME_SLICE;
-std::map<std::string, Junction*> junctionsMap;
-std::map<std::string, std::map<std::string,Road*>> roadMap;
-std::map<std::string, Car*> carsMap;
 int carCounter=0;
 
 IniClass::IniClass(){}
@@ -56,19 +53,24 @@ void IniClass::readConfiguration() const{
   
 
 }
-std::map<std::string, std::map<std::string,Road*>> IniClass::readRoadMap() const{
+
+void IniClass::readRoadMap(std::map<std::string, std::map<std::string, Road*> >& roadMap, std::map<std::string, Junction*>& junctionsMap) const {
     cout << "Starting readRoadMap" << endl;
     boost::property_tree::ptree pt;
     boost::property_tree::ini_parser::read_ini("RoadMap.ini", pt);
      for (auto& section : pt)
     {   
-        Junction* startJunction=new Junction(section.first);
+        Junction* startJunction=new Junction(section.first,  DEFAULT_TIME_SLICE, MAX_TIME_SLICE, MIN_TIME_SLICE);
         junctionsMap.insert(pair<std::string , Junction*>(startJunction->getId(),startJunction));
         std::cout << '[' << section.first << "]\n";
         for (auto& junc : section.second)
         {
+            Junction* endJunction;
             std::cout << junc.first << "=" << junc.second.get_value<std::string>() << "\n";
-            Junction* endJunction=new Junction(junc.first);
+            if(junctionsMap.find(junc.first)==junctionsMap.end()){
+                endJunction=new Junction(junc.first,DEFAULT_TIME_SLICE, MAX_TIME_SLICE, MIN_TIME_SLICE);
+            }
+            else  endJunction=junctionsMap.find(junc.first)->second;
             Road* road=new Road(*startJunction,*endJunction ,junc.second.get_value<int>());
             roadMap[startJunction->getId()].insert(pair<std::string,Road*>(endJunction->getId(),road));
             startJunction->setInComingRoads(*road);
@@ -78,14 +80,14 @@ std::map<std::string, std::map<std::string,Road*>> IniClass::readRoadMap() const
     }
    // for(auto& keyPair : roadMap)
     //    std::cout << "road:"<<keyPair.first <<":" << keyPair.second.getSJunc()<<", "<<keyPair.second.getEJunc() <<", "<<keyPair.second.getLen()<< endl;
-    return roadMap;
 }
-std::map<int, std::vector<Report*>> IniClass::readCommands() const{
+
+void IniClass::readCommands(boost::property_tree::ptree& pt, std::map<std::string, Car*>& cars, std::map<int, std::vector<Report*> >& reportsMap, std::map<std::string, std::map<std::string,Road*>> & roadMap,std::map<std::string, Junction*> &junctionsMap) const {
     cout << "Starting readCommands" << endl;
-    boost::property_tree::ptree pt;
-    boost::property_tree::ini_parser::read_ini("Commands.ini", pt);
+    boost::property_tree::ptree ptIn;
+    boost::property_tree::ini_parser::read_ini("Commands.ini", ptIn);
     std::map<int, std::vector<Report*>> reportMap;
-    for (auto& section : pt)
+    for (auto& section : ptIn)
      {
         std::string type;
         std::string time;
@@ -125,32 +127,31 @@ std::map<int, std::vector<Report*>> IniClass::readCommands() const{
            terminationTime=stoi(time);
         }    
         if(type=="car_report"){
-           Report *carReport=new CarReport(carId, stoi(time), type,id);
-           reportMap[stoi(time)].push_back(carReport);
+           Report *carReport=new CarReport(carId, stoi(time), type,id,pt,cars);
+           reportsMap[stoi(time)].push_back(carReport);
         }
         if(type=="road_report"){
-            Report *roadReport=new RoadReport(startJunction, endJunction, stoi(time),type,id);
-            reportMap[stoi(time)].push_back(roadReport);
+            Report *roadReport=new RoadReport(startJunction, endJunction, stoi(time),type,id,pt, cars, roadMap, junctionsMap);
+            reportsMap[stoi(time)].push_back(roadReport);
         }
         if(type=="junction_report"){
-            Junction junction(junctionId);
-            Report *junctionReport=new JunctionReport(junction, stoi(time), type, id);
-            reportMap[stoi(time)].push_back(junctionReport);
+            Junction* junction=junctionsMap.find(junctionId)->second;
+            Report *junctionReport=new JunctionReport(*junction, stoi(time), type, id,pt,cars,junctionsMap);
+            reportsMap[stoi(time)].push_back(junctionReport);
         }
             
         
             
      }
            
-    return reportMap;
+
     
 }
 
-std::map<int, vector<Event*>> IniClass::readEvents() const {
+void IniClass::readEvents(std::map<std::string, Car*>& cars, std::map<int, std::vector<Event*> >& eventsMap, std::map<std::string, std::map<std::string,Road*>> &roadMap) const {
     cout << "Starting readEvents" << endl;
     boost::property_tree::ptree pt;
     boost::property_tree::ini_parser::read_ini("Events.ini", pt);
-    std::map<int, std::vector < Event*>> eventsMap;
     for (auto& section : pt) {
         std::string type;
         std::string time;
@@ -183,12 +184,11 @@ std::map<int, vector<Event*>> IniClass::readEvents() const {
                         roadPlanMap.insert(std::pair<int, Road*>(i,roadMap.find(roadPlanJunctions[i])->second.find(roadPlanJunctions[i+1])->second));
                     }
             carCounter++;
-            Event *carArrivel=new AddCarEvent(stoi(time),carId, roadPlanMap);
+            Event *carArrivel=new AddCarEvent(stoi(time),carId, roadPlanMap, cars);
             eventsMap[stoi(time)].push_back(carArrivel);//maybe we need to init the inner vector
         }
         if(type=="car_fault"){
-            //Car* car=carsMap.find(carId)->second;
-            Event *carFault=new CarFaultEvent(stoi(time), carId ,stoi(timeOfFault) );
+            Event *carFault=new CarFaultEvent(stoi(time), carId ,stoi(timeOfFault),cars );
             eventsMap[stoi(time)].push_back(carFault);///maybe we need to init the inner vector
         } 
         
@@ -196,7 +196,7 @@ std::map<int, vector<Event*>> IniClass::readEvents() const {
         
      }
            
-    return eventsMap;
+    
 }
            
     
@@ -226,13 +226,8 @@ int IniClass::getMinTimeSlice(){
 int IniClass::getTerminationTime(){
     return terminationTime;
 }
-std::map<std::string, Junction*>  IniClass::getJunctionsMap(){
-    return junctionsMap;
-}
-void IniClass::setCarMap(std::map<std::string,Car*> cars){
-    carsMap=cars;
-    
-}
+
+
 
 int IniClass::getCarCounter() {
     return carCounter;

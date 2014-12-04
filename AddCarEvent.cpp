@@ -16,10 +16,11 @@
 AddCarEvent::AddCarEvent() {
 }
 
-AddCarEvent::AddCarEvent(int time, std::string const &carID ,std::map<int, Road*> const roadPlan) {
+AddCarEvent::AddCarEvent(int time, std::string const &carID ,std::map<int, Road*> const roadPlan,std::map<std::string, Car*> &cars) {
     _time=time;
-    _carID=carID;
     _roadPlan=roadPlan;
+    _car=new Car(carID, _roadPlan);
+    *_carsMap=cars;
 }
 
 AddCarEvent::~AddCarEvent() {
@@ -28,7 +29,8 @@ AddCarEvent::~AddCarEvent() {
 }
 
 void AddCarEvent::performEvent(){
-    Car* car=new Car(_carID,_roadPlan);
-    _roadPlan[0]->addCarToRoad();
+       _roadPlan[0]->addCarToRoad();
+       _carsMap->insert(std::pair<std::string, Car*>(_car->getCarId(), _car));
+
 }
 

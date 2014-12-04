@@ -13,13 +13,14 @@
 
 class AddCarEvent: public Event {
     int _time;
-    std::string _carID;
+    Car* _car;
     std::map<int, Road*> _roadPlan;
+    std::map<std::string, Car*>* _carsMap;
     
 public:
     AddCarEvent();
     virtual ~AddCarEvent();
-    AddCarEvent(int time,const std::string &carID,const std::map<int , Road*> roadPlan);
+    AddCarEvent(int time,const std::string &carID,const std::map<int , Road*> roadPlana, std::map<std::string, Car*> &cars);
     void performEvent();
     std::string getCarId();
     std::string getRoadPlan();
