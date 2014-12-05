@@ -16,7 +16,6 @@
 #include "CarFaultEvent.h"
 #include "CarReport.h"
 #include "Event.h"
-#include "InComingJunction.h"
 #include "Junction.h"
 #include "JunctionReport.h"
 #include "Report.h"
@@ -32,12 +31,13 @@ using namespace std;
 
 
 int main(int argc, char** argv) {    
-    std::map<std::string, Car*>* cars;
-    boost::property_tree::ptree *pt;
-    std::map<int, std::vector<Report*>>* reportsMap;//=a.readCommands(*pt, *cars);
-    std::map<int, std::vector<Event*>>* eventsMap;//=a.readEvents(*cars);
-    std::map<std::string, Junction*> *junctuons;//=a.getJunctionsMap();
-    std::map<std::string, std::map<std::string,Road*>>* roadMap;//=a.readRoadMap();
+    std::map<std::string, Car*> cars;
+    boost::property_tree::ptree pt;
+    
+    std::map<int, std::vector<Report*>> reportsMap;//=a.readCommands(*pt, *cars);
+    std::map<int, std::vector<Event*>> eventsMap;//=a.readEvents(*cars);
+    std::map<std::string, Junction*> junctuons;//=a.getJunctionsMap();
+    std::map<std::string, std::map<std::string,Road*>> roadMap;//=a.readRoadMap();
     IniClass a;
     a.readConfiguration();
     
@@ -46,10 +46,11 @@ int main(int argc, char** argv) {
     int const MAX_TIME_SLICE=a.getMaxTimeSlice();
     int const MIN_TIME_SLICE=a.getMinTimeSlice();
     int finishedCarsCounter=0;
-    a.readCommands(*pt, *cars,*reportsMap, *roadMap ,*junctuons);
-    a.readEvents(*cars,*eventsMap , *roadMap);
+    a.readRoadMap(roadMap, junctuons);
+    a.readCommands(pt, cars,reportsMap, roadMap ,junctuons);
+    a.readEvents(cars,eventsMap , roadMap);
     //a.getJunctionsMap();
-    a.readRoadMap(*roadMap, *junctuons);
+    
     
     
     
@@ -62,28 +63,23 @@ int main(int argc, char** argv) {
     int carArrivalCounter=a.getCarCounter();
     
     while(simulationRunning){
-        if(eventsMap->find(time)!=eventsMap->end()){
-            for(auto& timeUnit:eventsMap[time]){
-                for(auto& event:timeUnit.second){
-                    event->performEvent();                       
-                }
-            
+        if(eventsMap.find(time)!=eventsMap.end()){
+            for(auto& event:eventsMap[time]){
+                    event->performEvent();                      
             }
         } 
-        if(reportsMap->find(time)!=reportsMap->end()){
-            for(auto& timeUnit:reportsMap[time]){
-                for(auto& report:timeUnit.second){
+        if(reportsMap.find(time)!=reportsMap.end()){
+            for(auto& report:reportsMap[time]){
                     report->writeReport();
-                }
             }
         }
-        for(auto& car:*cars){
+        for(auto& car:cars){
             car.second->advanceCar(time);
         }
-        for(auto& junc:*junctuons){
+        for(auto& junc:junctuons){
             std::string carToRemove=junc.second->setGreenForIncomingJunction();
-            cars->erase(carToRemove);
-            cars->find(carToRemove)->second->~Car();
+            cars.erase(carToRemove);
+            cars.find(carToRemove)->second->~Car();
             finishedCarsCounter++;
         }
         
@@ -92,29 +88,29 @@ int main(int argc, char** argv) {
             simulationRunning=0;
         }
     }
-    boost::property_tree::write_ini("Reports", *pt);
-    for(auto& key:*junctuons){
+    boost::property_tree::write_ini("Reports", pt);
+    for(auto& key:junctuons){
         key.second->~Junction();
     }
-    for(auto& key:*roadMap){
+    for(auto& key:roadMap){
         for(auto& inkey:key.second){
             inkey.second->~Road();           
         }
         
     }
-    for(auto& key:*cars){
+    for(auto& key:cars){
         key.second->~Car();
     }
-    for(auto& key:*eventsMap){
+    for(auto& key:eventsMap){
         for(auto& inKey:key.second){
             inKey->~Event();
         }
     }
-    for(auto& key:*reportsMap){
+    for(auto& key:reportsMap){
         for(auto& inkey:key.second){
             inkey->~Report();
         }
         
     
-}
+    }
 }

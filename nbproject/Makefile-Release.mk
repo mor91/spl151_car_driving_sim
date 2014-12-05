@@ -40,7 +40,6 @@ OBJECTFILES= \
 	${OBJECTDIR}/CarFaultEvent.o \
 	${OBJECTDIR}/CarReport.o \
 	${OBJECTDIR}/Event.o \
-	${OBJECTDIR}/InComingJunction.o \
 	${OBJECTDIR}/Junction.o \
 	${OBJECTDIR}/JunctionReport.o \
 	${OBJECTDIR}/Report.o \
@@ -98,11 +97,6 @@ ${OBJECTDIR}/Event.o: Event.cpp
 	${MKDIR} -p ${OBJECTDIR}
 	${RM} "$@.d"
 	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Event.o Event.cpp
-
-${OBJECTDIR}/InComingJunction.o: InComingJunction.cpp 
-	${MKDIR} -p ${OBJECTDIR}
-	${RM} "$@.d"
-	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/InComingJunction.o InComingJunction.cpp
 
 ${OBJECTDIR}/Junction.o: Junction.cpp 
 	${MKDIR} -p ${OBJECTDIR}

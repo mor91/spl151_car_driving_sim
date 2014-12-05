@@ -42,17 +42,7 @@ Report::~Report() {
         std::cout << "Report deleted"<< std::endl;
 }
 
-void Report::setCars(std::map<std::string, Car*> &cars) {
-    _cars=&cars;
-}
 
-void Report::setJunctions(std::map<std::string, Junction*> &junctions) {
-   _junctions=&junctions;
-}
-
-void Report::setRoadMap(std::map<std::string, std::map<std::string, Road*>> &roadMap) {
-   _roadMap=&roadMap;
-}
 
 void Report::writeReports() {
     

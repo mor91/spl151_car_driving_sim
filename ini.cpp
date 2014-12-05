@@ -56,11 +56,16 @@ void IniClass::readConfiguration() const{
 
 void IniClass::readRoadMap(std::map<std::string, std::map<std::string, Road*> >& roadMap, std::map<std::string, Junction*>& junctionsMap) const {
     cout << "Starting readRoadMap" << endl;
-    boost::property_tree::ptree pt;
-    boost::property_tree::ini_parser::read_ini("RoadMap.ini", pt);
-     for (auto& section : pt)
+    boost::property_tree::ptree ptIn;
+    boost::property_tree::ini_parser::read_ini("RoadMap.ini", ptIn);
+     for (auto& section : ptIn)
     {   
-        Junction* startJunction=new Junction(section.first,  DEFAULT_TIME_SLICE, MAX_TIME_SLICE, MIN_TIME_SLICE);
+        Junction* startJunction;
+        //std::cout << junc.first << "=" << junc.second.get_value<std::string>() << "\n";
+        if(junctionsMap.find(section.first)==junctionsMap.end()){
+            startJunction=new Junction(section.first,DEFAULT_TIME_SLICE, MAX_TIME_SLICE, MIN_TIME_SLICE);
+        }
+        else startJunction=junctionsMap.find(section.first)->second;
         junctionsMap.insert(pair<std::string , Junction*>(startJunction->getId(),startJunction));
         std::cout << '[' << section.first << "]\n";
         for (auto& junc : section.second)
@@ -71,7 +76,7 @@ void IniClass::readRoadMap(std::map<std::string, std::map<std::string, Road*> >&
                 endJunction=new Junction(junc.first,DEFAULT_TIME_SLICE, MAX_TIME_SLICE, MIN_TIME_SLICE);
             }
             else  endJunction=junctionsMap.find(junc.first)->second;
-            Road* road=new Road(*startJunction,*endJunction ,junc.second.get_value<int>());
+            Road* road=new Road(*startJunction, *endJunction ,junc.second.get_value<int>());
             roadMap[startJunction->getId()].insert(pair<std::string,Road*>(endJunction->getId(),road));
             startJunction->setInComingRoads(*road);
         }
@@ -150,9 +155,9 @@ void IniClass::readCommands(boost::property_tree::ptree& pt, std::map<std::strin
 
 void IniClass::readEvents(std::map<std::string, Car*>& cars, std::map<int, std::vector<Event*> >& eventsMap, std::map<std::string, std::map<std::string,Road*>> &roadMap) const {
     cout << "Starting readEvents" << endl;
-    boost::property_tree::ptree pt;
-    boost::property_tree::ini_parser::read_ini("Events.ini", pt);
-    for (auto& section : pt) {
+    boost::property_tree::ptree ptIn;
+    boost::property_tree::ini_parser::read_ini("Events.ini", ptIn);
+    for (auto& section : ptIn) {
         std::string type;
         std::string time;
         std::string carId;

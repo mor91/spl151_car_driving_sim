@@ -19,15 +19,15 @@ RoadReport::RoadReport() {
 }
 
 RoadReport::RoadReport(std::string &startJunction, std::string &endJunction, int time,std::string &typeOfReport, std::string & reportId,boost::property_tree::ptree &pt,std::map<std::string, Car*> &cars,std::map<std::string, std::map<std::string,Road*>> &roadMap,std::map<std::string, Junction*> &junctionsMap){
-    *_junctionsMap=junctionsMap;
+    _junctionsMap=&junctionsMap;
     _startJunction=_junctionsMap->find(startJunction)->second;
     _endJunction=_junctionsMap->find(endJunction)->second;
     _time=time;
     _reportId=reportId;
     _type=typeOfReport;
-    *_cars=cars;
-    *_roadMap=roadMap;
-    *_pt=pt;
+    _cars=&cars;
+    _roadMap=&roadMap;
+    _pt=&pt;
 }
 
 RoadReport::RoadReport(const std::string &startJunction, const std::string &endJunction, const std::string &carsList) {

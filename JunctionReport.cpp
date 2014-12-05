@@ -23,9 +23,9 @@ JunctionReport::JunctionReport(Junction &junction, int time,std::string& typeOfR
     _time=time;
     _reportId=reportId;
     _type=typeOfReport;
-    *_cars=cars;
-    *_junctionsMap=junctionsMap;
-    *_pt=pt;
+    _cars=&cars;
+    _junctionsMap=&junctionsMap;
+    _pt=&pt;
 }
 
 JunctionReport::JunctionReport(const Junction &junction, const std::string &timeSlices, const std::vector<std::string> &inComingJunctionID ) {
@@ -43,19 +43,19 @@ void JunctionReport::writeReport(){
    std::string carsWaitingList;
     Junction* junction=_junctionsMap->find(_junction.getId())->second;
     int i=0;
-    for(int i=0; i<junction->_inComingRoads.size();i++){
+    for(int i=0; i<junction->getInComingRoads().size();i++){
         i=0;
-        if(junction->_greenForRoad->getSJunc().getId().compare(junction->_inComingRoads[i]->getSJunc().getId())==0)
+        if(junction->getGreenForRoad()->getSJunc().getId().compare(junction->getInComingRoads()[i]->getSJunc().getId())==0)
             i=junction->getCurrentTimeSlice();
         else i=-1;
-        _timeSlices.append("(").append(std::to_string(junction->_inComingRoads[i]->getTimeSlice())).append(",").append(std::to_string(i)).append(")");
-        _junctionsWaitingCars.insert(std::pair<std::string,std::string>(junction->_inComingRoads[i]->getSJunc().getId(),junction->_inComingRoads[i]->getWaitingCarList()));
+        _timeSlices.append("(").append(std::to_string(junction->getInComingRoads()[i]->getTimeSlice())).append(",").append(std::to_string(i)).append(")");
+        _junctionsWaitingCars.insert(std::pair<std::string,std::string>(junction->getInComingRoads()[i]->getSJunc().getId(),junction->getInComingRoads()[i]->getWaitingCarList()));
      }
     _pt->put(_reportId.append(".junctionId"),_junction.getId());
     _pt->put(_reportId.append(".timeSlices"), _timeSlices);
-    for(int i=0; i<junction->_inComingRoads.size();i++){
-        std::string juncId=junction->_inComingRoads[i]->getSJunc().getId();
-        std::string carsWaiting=junction->_inComingRoads[i]->getWaitingCarList();
+    for(int i=0; i<junction->getInComingRoads().size();i++){
+        std::string juncId=junction->getInComingRoads()[i]->getSJunc().getId();
+        std::string carsWaiting=junction->getInComingRoads()[i]->getWaitingCarList();
         _pt->put(_reportId.append(".").append(juncId), carsWaiting);
     }
 }

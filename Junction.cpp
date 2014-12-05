@@ -9,12 +9,14 @@
 #include "Road.h"
 #include <vector>
 #include <string>
+#include <iostream>
 
 Junction::Junction() {
 }
 
-Junction::Junction(const std::string& junctionID, int defaultTimeSlice, int maxTimeSlice, int minTimeSlice) {
+Junction::Junction(const std::string &junctionID, int defaultTimeSlice, int maxTimeSlice, int minTimeSlice) {
     _junctionID=junctionID;
+    std::cout << _junctionID << std::endl;
     _currentTimeSlice=0;
     _defaultTimeSlice=defaultTimeSlice;
     _maxTimeSlice=maxTimeSlice;
@@ -77,3 +79,8 @@ std::vector<Road*> Junction::getInComingRoads() {
 int Junction::getCurrentTimeSlice() {
     return _currentTimeSlice;
 }
+
+Road* Junction::getGreenForRoad() {
+    return _greenForRoad;
+}
+

@@ -26,9 +26,6 @@ public:
     Report(const std::string &reportID);
     virtual ~Report();
     virtual void writeReport()=0;
-    void setCars(std::map<std::string, Car*> &cars);
-    void setJunctions(std::map<std::string, Junction*> &junctions);
-    void setRoadMap(std::map<std::string, std::map<std::string, Road*>> &roadMap);
     void writeReports();
     virtual std::string getReportId()=0;
     virtual std::string getReportType()=0;

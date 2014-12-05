@@ -22,6 +22,7 @@ class CarReport:public Report {
     int _timeOfReport;
     std::string _type;
     boost::property_tree::ptree* _pt;
+    std::map<std::string, Car*> *_cars;
 public:
     CarReport();
     CarReport(std::string &carID, int timeOfReport ,std::string& typeOfReport, std::string  &reportId,boost::property_tree::ptree &pt,std::map<std::string, Car*> &cars);

@@ -20,8 +20,9 @@ CarReport::CarReport(std::string &carID, int timeOfReport,std::string &typeOfRep
     _reportId=reportId;
     _timeOfReport=timeOfReport;
     _type=typeOfReport;
-    *_cars=cars;
-    *_pt=pt;
+    _pt=&pt;
+    _cars=&cars;
+    
 }
 
 CarReport::CarReport(const std::string &carID, const std::string &history,int faultyTimeLeft ) {
