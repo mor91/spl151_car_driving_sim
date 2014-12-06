@@ -30,7 +30,9 @@ AddCarEvent::~AddCarEvent() {
 
 void AddCarEvent::performEvent(){
        _roadPlan[0]->addCarToRoad();
-       _carsMap->insert(std::pair<std::string, Car*>(_car->getCarId(), _car));
-
+       (*_carsMap)[_car->getCarId()]= _car;
+       /*for(auto & car : (*_carsMap)){
+           std::cout << car.second->getCarId() << std::endl;
+       }*/
 }
 

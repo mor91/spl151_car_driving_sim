@@ -15,7 +15,7 @@ class CarFaultEvent : public Event{
     int _time;
     int _timeOfFault;
     std::string _carID;
-    std::map<std::string, Car*> _carsMap;
+    std::map<std::string, Car*> *_carsMap;
 public:
     CarFaultEvent();
     CarFaultEvent(int time, const std::string carId, int timeOfFault, std::map<std::string, Car*> &cars);

@@ -21,7 +21,7 @@ class Road {
     int _length;
     int _baseSpeed;
     int _noOfCars;
-    std::map<int,std::vector<Car*>> _faultyCarsOnRoad;
+    std::map<std::string,int> _faultyCarsOnRoad;
     int _timeSlice;
     std::queue<Car*> _waitingForGreenLightList;
     int _numOfWaitingCars;
@@ -37,10 +37,10 @@ public:
     int getLen();
     void baseSpeed();
     int getNoOfCars();
-    void removeFaultyCar(Car& car);
-    void addFaultyCar(std::string carID);//implementation on CarFaultyCar
+    void removeFaultyCar(std::string carID);
+    void addFaultyCar(std::string carID,int distance);//implementation on CarFaultyCar
     void addCarToRoad();
-    std::map<int,std::vector<Car*>> getFaultyCarsOnRoadMap();
+    std::map<std::string,int> getFaultyCarsOnRoad();
     int getBaseSpeed();
     void addCarToWaitingList(Car* car);
     int removeCarFromWaitingList();

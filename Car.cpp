@@ -23,14 +23,14 @@ Car::Car(const std::string& carID, std::map<int, Road*> &roadPlan) {
 }
 void Car::newSpeed(){
     int baseSpeed=_currentRoad->getBaseSpeed();
-    for(auto& key:_currentRoad->getFaultyCarsOnRoadMap()){
+    /*for(auto& key:_currentRoad->getFaultyCarsOnRoadMap()){
         if(_distanceFromBeginningOfRoad<key.first){
             for(auto& car:key.second ){
                 baseSpeed=baseSpeed/2;
             }
         }
     }
-    _speed=baseSpeed;
+    _speed=baseSpeed;*/
 }
 
 Car::~Car() {//check that everything is deleted
@@ -43,7 +43,7 @@ Car::~Car() {//check that everything is deleted
 void Car::advanceCar(int time){
     int remaining=_currentRoad->getLen()-_distanceFromBeginningOfRoad;
     if(_remainingTimeToFault==1){
-        _currentRoad->removeFaultyCar(*this);
+        _currentRoad->removeFaultyCar(_carID);
     }
     if(_remainingTimeToFault>0){
         _remainingTimeToFault--;

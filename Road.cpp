@@ -26,7 +26,7 @@ Road::Road( Junction &startingJunction,  Junction &endJunction, int length) {
 }
 
 Road::~Road() {
-            std::cout << "Road deleted"<< std::endl;
+    std::cout << "Road deleted"<< std::endl;
 }
 Junction* Road::getSJunc(){
     return _startingJunction;
@@ -43,20 +43,14 @@ void Road::baseSpeed(){
 int Road::getNoOfCars(){
     return _noOfCars;
 }
-void Road::removeFaultyCar(Car& car){
-    int position;
-    for(int i=0; i<_faultyCarsOnRoad[car.getDistanceFromBeginningOfRoad()].size();i++){//find the position of the car in the vector
-        if(car.getCarId().compare(_faultyCarsOnRoad[car.getDistanceFromBeginningOfRoad()][i]->getCarId())==0)
-            position=i;
-    }
-    _faultyCarsOnRoad[car.getDistanceFromBeginningOfRoad()]
-    .erase(_faultyCarsOnRoad[car.getDistanceFromBeginningOfRoad()].begin()+position);
+void Road::removeFaultyCar(std::string carID){
+    _faultyCarsOnRoad.erase(carID);
 }
 void Road::addCarToRoad(){
     _noOfCars++;
 }
 
-std::map<int, std::vector<Car*> > Road::getFaultyCarsOnRoadMap() {
+std::map<std::string,int> Road::getFaultyCarsOnRoad() {
     return _faultyCarsOnRoad;
 
 }
@@ -84,8 +78,8 @@ Car* Road::getCarToRemove() {
 }
 
 
-void Road::addFaultyCar(std::string carID) {
-
+void Road::addFaultyCar(std::string carID,int distance) {
+    _faultyCarsOnRoad[carID]=distance;
 }
 
 int Road::getTimeSlice() {
