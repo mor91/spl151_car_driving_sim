@@ -25,11 +25,11 @@ CarReport::CarReport(std::string &carID, int timeOfReport,std::string &typeOfRep
     
 }
 
-CarReport::CarReport(const std::string &carID, const std::string &history,int faultyTimeLeft ) {
+/*CarReport::CarReport(const std::string &carID, const std::string &history,int faultyTimeLeft ) {
         _carID=carID;
         _history=history;
         _faultyTimeLeft=faultyTimeLeft;
-}
+}*/
 
 CarReport::~CarReport() {
         std::cout << "CarReport deleted"<< std::endl;

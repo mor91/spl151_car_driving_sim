@@ -16,23 +16,22 @@
 Road::Road() {
 }
 
-Road::Road(const Junction &startingJunction, const Junction &endJunction, int length) {
-    _startingJunction=startingJunction;
-    _endJunction=endJunction;
+Road::Road( Junction &startingJunction,  Junction &endJunction, int length) {
+    _startingJunction=&startingJunction;
+    _endJunction=&endJunction;
     _length=length;
     _baseSpeed=0;
     _noOfCars=0;
-    _timeSlice=_endJunction.getTimeSlice();
+    _timeSlice=_endJunction->getTimeSlice();
 }
 
 Road::~Road() {
             std::cout << "Road deleted"<< std::endl;
-
 }
-Junction Road::getSJunc(){
+Junction* Road::getSJunc(){
     return _startingJunction;
 }
-Junction Road::getEJunc(){
+Junction* Road::getEJunc(){
     return _endJunction;
 }
 int Road::getLen(){

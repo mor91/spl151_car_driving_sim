@@ -20,10 +20,10 @@ class Junction {
     int _defaultTimeSlice;
     int _maxTimeSlice;
     int _minTimeSlice;
-    
     int _currentTimeSlice;
     Road* _greenForRoad;
     std::vector<Road*> _inComingRoads; 
+    
 
 public:
 
@@ -31,16 +31,14 @@ public:
     Junction(const std::string &junctionID, int defaultTimeSlice, int maxTimeSlice, int minTimeSlice);
     virtual ~Junction();
     std::string getId();
-    std::string setGreenForIncomingJunction();
+    int setGreenForIncomingJunction();
     Road* getGreenForRoad();
     std::vector<Road*> getInComingRoads();
     void setInComingRoads(Road &road);
     int getTimeSlice();
     int getCurrentTimeSlice();
-    
-
-    
-    
+    void setGreenForRoad(Road* _greenForRoad);
+    std::string getCarToRemove();
 
 };
 

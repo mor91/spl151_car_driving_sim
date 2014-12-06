@@ -58,7 +58,7 @@ void Car::advanceCar(int time){
             
             
     }
-    _history=_history.append("(").append(std::to_string(time)).append(",").append(_currentRoad->getSJunc().getId()).append(",").append(_currentRoad->getEJunc().getId()).append(",").append(std::to_string(_distanceFromBeginningOfRoad)).append(")");
+    _history=_history.append("(").append(std::to_string(time)).append(",").append(_currentRoad->getSJunc()->getId()).append(",").append(_currentRoad->getEJunc()->getId()).append(",").append(std::to_string(_distanceFromBeginningOfRoad)).append(")");
     
 }
 int Car::getDistanceFromBeginningOfRoad(){

@@ -16,8 +16,8 @@
 #include <iostream>
 
 class Road {
-    Junction _startingJunction;
-    Junction _endJunction;
+    Junction *_startingJunction;
+    Junction *_endJunction;
     int _length;
     int _baseSpeed;
     int _noOfCars;
@@ -30,10 +30,10 @@ class Road {
     
 public:
     Road();
-    Road(const Junction &startingJunction, const Junction &endJunction, int length);
+    Road( Junction & startingJunction,  Junction &endJunction, int length);
     virtual ~Road();
-    Junction getSJunc();
-    Junction getEJunc();
+    Junction* getSJunc();
+    Junction *getEJunc();
     int getLen();
     void baseSpeed();
     int getNoOfCars();

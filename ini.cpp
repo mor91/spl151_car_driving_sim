@@ -60,27 +60,29 @@ void IniClass::readRoadMap(std::map<std::string, std::map<std::string, Road*> >&
     boost::property_tree::ini_parser::read_ini("RoadMap.ini", ptIn);
      for (auto& section : ptIn)
     {   
-        Junction* startJunction;
+        Junction* endJunction;
         //std::cout << junc.first << "=" << junc.second.get_value<std::string>() << "\n";
         if(junctionsMap.find(section.first)==junctionsMap.end()){
-            startJunction=new Junction(section.first,DEFAULT_TIME_SLICE, MAX_TIME_SLICE, MIN_TIME_SLICE);
+            endJunction=new Junction(section.first,DEFAULT_TIME_SLICE, MAX_TIME_SLICE, MIN_TIME_SLICE);
+            junctionsMap.insert(pair<std::string , Junction*>(endJunction->getId(),endJunction));
         }
-        else startJunction=junctionsMap.find(section.first)->second;
-        junctionsMap.insert(pair<std::string , Junction*>(startJunction->getId(),startJunction));
+        else endJunction=junctionsMap.find(section.first)->second;
         std::cout << '[' << section.first << "]\n";
         for (auto& junc : section.second)
         {
-            Junction* endJunction;
+            Junction* startJunction;
             std::cout << junc.first << "=" << junc.second.get_value<std::string>() << "\n";
             if(junctionsMap.find(junc.first)==junctionsMap.end()){
-                endJunction=new Junction(junc.first,DEFAULT_TIME_SLICE, MAX_TIME_SLICE, MIN_TIME_SLICE);
+                startJunction=new Junction(junc.first,DEFAULT_TIME_SLICE, MAX_TIME_SLICE, MIN_TIME_SLICE);
+                junctionsMap.insert(pair<std::string , Junction*>(startJunction->getId(),startJunction));
+
             }
-            else  endJunction=junctionsMap.find(junc.first)->second;
+            else  startJunction=junctionsMap.find(junc.first)->second;
             Road* road=new Road(*startJunction, *endJunction ,junc.second.get_value<int>());
             roadMap[startJunction->getId()].insert(pair<std::string,Road*>(endJunction->getId(),road));
-            startJunction->setInComingRoads(*road);
+            endJunction->setInComingRoads(*road);
         }
-        
+    endJunction->setGreenForRoad(endJunction->getInComingRoads()[0]);
         
     }
    // for(auto& keyPair : roadMap)

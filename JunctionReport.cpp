@@ -45,16 +45,16 @@ void JunctionReport::writeReport(){
     int i=0;
     for(int i=0; i<junction->getInComingRoads().size();i++){
         i=0;
-        if(junction->getGreenForRoad()->getSJunc().getId().compare(junction->getInComingRoads()[i]->getSJunc().getId())==0)
+        if(junction->getGreenForRoad()->getSJunc()->getId().compare(junction->getInComingRoads()[i]->getSJunc()->getId())==0)
             i=junction->getCurrentTimeSlice();
         else i=-1;
         _timeSlices.append("(").append(std::to_string(junction->getInComingRoads()[i]->getTimeSlice())).append(",").append(std::to_string(i)).append(")");
-        _junctionsWaitingCars.insert(std::pair<std::string,std::string>(junction->getInComingRoads()[i]->getSJunc().getId(),junction->getInComingRoads()[i]->getWaitingCarList()));
+        _junctionsWaitingCars.insert(std::pair<std::string,std::string>(junction->getInComingRoads()[i]->getSJunc()->getId(),junction->getInComingRoads()[i]->getWaitingCarList()));
      }
     _pt->put(_reportId.append(".junctionId"),_junction.getId());
     _pt->put(_reportId.append(".timeSlices"), _timeSlices);
     for(int i=0; i<junction->getInComingRoads().size();i++){
-        std::string juncId=junction->getInComingRoads()[i]->getSJunc().getId();
+        std::string juncId=junction->getInComingRoads()[i]->getSJunc()->getId();
         std::string carsWaiting=junction->getInComingRoads()[i]->getWaitingCarList();
         _pt->put(_reportId.append(".").append(juncId), carsWaiting);
     }

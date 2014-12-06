@@ -10,6 +10,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+std::string carToRemove;
 
 Junction::Junction() {
 }
@@ -39,10 +40,11 @@ std::string Junction::getId(){
 }
 
 
-std::string Junction::setGreenForIncomingJunction() {
+int Junction::setGreenForIncomingJunction() {
     int found=0;
+    int removeCar=0;
     for(int i=0; i<_inComingRoads.size() && !found;i++){
-        if(_inComingRoads[i]->getSJunc().getId().compare(_greenForRoad->getSJunc().getId())==0){
+        if(_inComingRoads[i]->getSJunc()->getId().compare(_greenForRoad->getSJunc()->getId())==0){
             found=1; 
         }
         if(_greenForRoad->getTimeSlice()==_currentTimeSlice){
@@ -58,8 +60,10 @@ std::string Junction::setGreenForIncomingJunction() {
     }
     if(_currentTimeSlice<_greenForRoad->getTimeSlice()){
         _currentTimeSlice++;
-        if(_greenForRoad->removeCarFromWaitingList()==1)
-            return _greenForRoad->getCarToRemove()->getCarId();
+        if(_greenForRoad->getWaitingList().size()!=0 && _greenForRoad->removeCarFromWaitingList()==1){
+            carToRemove=_greenForRoad->getCarToRemove()->getCarId();
+            removeCar=1;
+        }
     }
 
 }
@@ -84,3 +88,10 @@ Road* Junction::getGreenForRoad() {
     return _greenForRoad;
 }
 
+void Junction::setGreenForRoad(Road* _greenForRoad) {
+    this->_greenForRoad = _greenForRoad;
+}
+
+std::string Junction::getCarToRemove() {
+    return carToRemove;
+}
