@@ -79,12 +79,3 @@ std::string JunctionReport::getJunctionId() {
 std::string JunctionReport::getTimeSlices() {
     return _timeSlices;
 }
-
-void JunctionReport::setPTree(boost::property_tree::ptree& pt) {
-     *_pt=pt;
-  
-}
-
-boost::property_tree::ptree* JunctionReport::getPTree() {
-    return _pt;
-}

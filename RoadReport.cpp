@@ -66,10 +66,3 @@ std::string RoadReport::getReportType() {
     return _type;
 }
 
-void RoadReport::setPTree(boost::property_tree::ptree& pt) {
-    *_pt=pt;
-}
-
-boost::property_tree::ptree* RoadReport::getPTree() {
-    return _pt;
-}

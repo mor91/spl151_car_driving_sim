@@ -66,11 +66,3 @@ std::string CarReport::getHistory() {
     return _history;
 }
 
-void CarReport::setPTree(boost::property_tree::ptree& pt) {
-    *_pt=pt;
-}
-
-boost::property_tree::ptree* CarReport::getPTree() {
-    return _pt;
-
-}

@@ -34,10 +34,6 @@ public:
     std::string getReportId();
     std::string getReportType();
 
-    virtual void setPTree(boost::property_tree::ptree& pt);
-
-    virtual boost::property_tree::ptree* getPTree();
-
 
 private:
 

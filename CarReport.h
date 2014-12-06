@@ -35,10 +35,6 @@ public:
     std::string getHistory();
     std::string getFaultyTimeLeft();
 
-    virtual void setPTree(boost::property_tree::ptree& pt);
-
-    virtual boost::property_tree::ptree* getPTree();
-
 private:
 
 };

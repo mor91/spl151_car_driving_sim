@@ -43,10 +43,6 @@ public:
     std::string getTimeSlices();
     std::vector <std::string> getInComingJunctions();
 
-    virtual void setPTree(boost::property_tree::ptree& pt);
-
-    virtual boost::property_tree::ptree* getPTree();
-
 
 };
 

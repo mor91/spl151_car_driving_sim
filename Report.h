@@ -29,8 +29,6 @@ public:
     void writeReports();
     virtual std::string getReportId()=0;
     virtual std::string getReportType()=0;
-    virtual void setPTree(boost::property_tree::ptree& pt)=0;
-    virtual boost::property_tree::ptree* getPTree()=0;
 private:
     
 
