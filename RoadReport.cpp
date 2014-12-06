@@ -52,10 +52,10 @@ void RoadReport::writeReport(){
         
     }
     _startJunction=road->getSJunc();
-    _pt->put(_reportId.append(".endJunction"),_endJunction->getId());
+    _pt->put(_reportId + ".endJunction" ,_endJunction->getId());
     _endJunction=road->getEJunc();
-    _pt->put(_reportId.append(".startJunction"),_startJunction->getId());
-    _pt->put(_reportId.append(".cars"),_carsList);
+    _pt->put(_reportId + ".startJunction",_startJunction->getId());
+    _pt->put(_reportId + ".cars" ,_carsList);
 }
 
 std::string RoadReport::getReportId() {

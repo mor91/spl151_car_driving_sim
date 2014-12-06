@@ -50,10 +50,7 @@ int main(int argc, char** argv) {
     a.readCommands(pt, cars,reportsMap, roadMap ,junctions);
     a.readEvents(cars,eventsMap , roadMap);
     //a.getJunctionsMap();
-    
-    
-    
-    
+
 
     int const TERMINATION=a.getTerminationTime();
     
@@ -90,9 +87,11 @@ int main(int argc, char** argv) {
             simulationRunning=0;
         }
     }
-    boost::property_tree::write_ini("Reports", pt);
-    for(auto& key:junctions){
-        key.second->~Junction();
+    
+    boost::property_tree::write_ini("Reports_output.ini", pt);
+    
+    for(auto& junc:junctions){
+        junc.second->~Junction();
     }
     for(auto& key:roadMap){
         for(auto& inkey:key.second){

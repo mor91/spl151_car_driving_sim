@@ -39,10 +39,9 @@ void CarReport::writeReport(){
     _carID=car->getCarId();
     _history=car->getHistory();
     _faultyTimeLeft=car->getRemainingTimeOfFault();
-    _pt->put(_reportId.append(".carId"),_carID);
-    _pt->put(_reportId.append(".history"),_history);
-    _pt->put(_reportId.append(".faultyTimeLeft"),_faultyTimeLeft);
-    
+    _pt->put(_reportId + ".carId",_carID);
+    _pt->put(_reportId + ".history",_history);
+    _pt->put(_reportId + ".faultyTimeLeft",_faultyTimeLeft);
 }
 
 std::string CarReport::getReportId() {
