@@ -33,7 +33,7 @@ class JunctionReport:public Report {
     std::map<std::string, Car*>* _cars;
 public:
     JunctionReport();
-    JunctionReport(Junction &junction, int time,std::string &typeOfReport, std::string  &reportId,boost::property_tree::ptree &pt,std::map<std::string, Car*> &cars, std::map<std::string, Junction*> &junctionsMap);
+    JunctionReport(Junction &junction, int time, std::string  &reportId,boost::property_tree::ptree &pt,std::map<std::string, Car*> &cars, std::map<std::string, Junction*> &junctionsMap);
     JunctionReport(const Junction &junction, const std::string &timeSlices, const std::vector<std::string> &inComingJunctionID );
     virtual ~JunctionReport();
     void writeReport();

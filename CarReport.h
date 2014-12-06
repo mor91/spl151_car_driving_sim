@@ -25,7 +25,7 @@ class CarReport:public Report {
     std::map<std::string, Car*> *_cars;
 public:
     CarReport();
-    CarReport(std::string &carID, int timeOfReport ,std::string& typeOfReport, std::string  &reportId,boost::property_tree::ptree &pt,std::map<std::string, Car*> &cars);
+    CarReport(std::string &carID, int timeOfReport , std::string  &reportId,boost::property_tree::ptree &pt,std::map<std::string, Car*> &cars);
    // CarReport(const std::string &carID, const std::string &history,int faultyTimeLeft);
     void writeReport();
     virtual ~CarReport();

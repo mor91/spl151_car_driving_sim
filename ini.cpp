@@ -134,16 +134,16 @@ void IniClass::readCommands(boost::property_tree::ptree& pt, std::map<std::strin
            terminationTime=stoi(time);
         }    
         if(type=="car_report"){
-           Report *carReport=new CarReport(carId, stoi(time), type,id,pt,cars);
+           Report *carReport=new CarReport(carId, stoi(time),id,pt,cars);
            reportsMap[stoi(time)].push_back(carReport);
         }
         if(type=="road_report"){
-            Report *roadReport=new RoadReport(startJunction, endJunction, stoi(time),type,id,pt, cars, roadMap, junctionsMap);
+            Report *roadReport=new RoadReport(startJunction, endJunction, stoi(time),id,pt, cars, roadMap, junctionsMap);
             reportsMap[stoi(time)].push_back(roadReport);
         }
         if(type=="junction_report"){
             Junction* junction=junctionsMap.find(junctionId)->second;
-            Report *junctionReport=new JunctionReport(*junction, stoi(time), type, id,pt,cars,junctionsMap);
+            Report *junctionReport=new JunctionReport(*junction, stoi(time), id,pt,cars,junctionsMap);
             reportsMap[stoi(time)].push_back(junctionReport);
         }
             

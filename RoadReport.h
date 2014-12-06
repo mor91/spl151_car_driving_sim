@@ -27,7 +27,7 @@ class RoadReport:public Report {
     std::map<std::string, Junction*> *_junctionsMap;
 public:
     RoadReport();
-    RoadReport(std::string& startJunction, std::string& endJunction, int time,std::string& typeOfReport, std::string & reportId,boost::property_tree::ptree &pt,std::map<std::string, Car*> &cars, std::map<std::string, std::map<std::string,Road*>> & roadMap,std::map<std::string, Junction*> &junctionsMap);
+    RoadReport(std::string& startJunction, std::string& endJunction, int time, std::string & reportId,boost::property_tree::ptree &pt,std::map<std::string, Car*> &cars, std::map<std::string, std::map<std::string,Road*>> & roadMap,std::map<std::string, Junction*> &junctionsMap);
     RoadReport(const std::string &startJunction, const std::string &endJunction, const std::string &carsList );
     virtual ~RoadReport();
     void writeReport();

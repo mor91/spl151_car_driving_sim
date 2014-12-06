@@ -18,11 +18,10 @@
 JunctionReport::JunctionReport() {
 }
 
-JunctionReport::JunctionReport(Junction &junction, int time,std::string& typeOfReport, std::string  &reportId,boost::property_tree::ptree &pt,std::map<std::string, Car*> &cars,std::map<std::string, Junction*> &junctionsMap){
+JunctionReport::JunctionReport(Junction &junction, int time, std::string  &reportId,boost::property_tree::ptree &pt,std::map<std::string, Car*> &cars,std::map<std::string, Junction*> &junctionsMap){
     _junction= junction;
     _time=time;
     _reportId=reportId;
-    _type=typeOfReport;
     _cars=&cars;
     _junctionsMap=&junctionsMap;
     _pt=&pt;
@@ -42,15 +41,15 @@ JunctionReport::~JunctionReport() {
 void JunctionReport::writeReport(){
    std::string carsWaitingList;
     Junction* junction=_junctionsMap->find(_junction.getId())->second;
-    int i=0;
+    int j=0;
     for(int i=0; i<junction->getInComingRoads().size();i++){
-        i=0;
+        j=0;
         if(junction->getGreenForRoad()->getSJunc()->getId().compare(junction->getInComingRoads()[i]->getSJunc()->getId())==0)
-            i=junction->getCurrentTimeSlice();
-        else i=-1;
-        _timeSlices.append("(").append(std::to_string(junction->getInComingRoads()[i]->getTimeSlice())).append(",").append(std::to_string(i)).append(")");
+            j=junction->getInComingRoads()[i]->getTimeSlice()-junction->getCurrentTimeSlice();
+        else j=-1;
+        _timeSlices.append("(").append(std::to_string(junction->getInComingRoads()[i]->getTimeSlice())).append(",").append(std::to_string(j)).append(")");
         _junctionsWaitingCars.insert(std::pair<std::string,std::string>(junction->getInComingRoads()[i]->getSJunc()->getId(),junction->getInComingRoads()[i]->getWaitingCarList()));
-     }
+    }
     _pt->put(_reportId.append(".junctionId"),_junction.getId());
     _pt->put(_reportId.append(".timeSlices"), _timeSlices);
     for(int i=0; i<junction->getInComingRoads().size();i++){
