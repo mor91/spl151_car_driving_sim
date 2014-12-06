@@ -11,11 +11,12 @@
 #include <map>
 #include <string>
 
-Car::Car(const std::string& carID, std::map<int, Road*> roadPlan) {
+Car::Car(const std::string& carID, std::map<int, Road*> &roadPlan) {
     _carID=carID;
     _remainingTimeToFault=0;
     _distanceFromBeginningOfRoad=0;
-    _currentRoad=_roadPlan[0];
+    _roadPlan =&roadPlan;
+    _currentRoad=roadPlan[0];
     _numOfJunctionTheCarPass=0;
     _currentRoadNumber=0;
     
@@ -90,8 +91,8 @@ void Car::setCurrentRoad(Road* road) {
 }
 
 int Car::setNextRoad() {
-    if(_currentRoadNumber+1<_roadPlan.size()){
-        _currentRoad=_roadPlan.find(_currentRoadNumber+1)->second;
+    if(_currentRoadNumber+1<_roadPlan->size()){
+        _currentRoad=_roadPlan->find(_currentRoadNumber+1)->second;
         return 0;//dont remove car from carsmap
     }
     else{

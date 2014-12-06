@@ -17,7 +17,7 @@ class Road;
 
 class Car {
     std::string _carID;
-    std::map<int, Road*> _roadPlan;
+    std::map<int, Road*> *_roadPlan;
     int _distanceFromBeginningOfRoad;
     int _speed;
     std::string _history;
@@ -27,7 +27,7 @@ class Car {
     int _currentRoadNumber;
 public:
     
-    Car(const std::string &carID, std::map<int , Road*> roadPlan);
+    Car(const std::string &carID, std::map<int , Road*>& roadPlan);
     virtual ~Car();
     void newSpeed();
     void advanceCar(int time);  
