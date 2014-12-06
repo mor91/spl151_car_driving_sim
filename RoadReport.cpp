@@ -47,7 +47,7 @@ void RoadReport::writeReport(){
                 car.second->getCurrentRoad()->getEJunc()->getId().compare(road->getEJunc()->getId())
                 )
         {
-           _carsList=_carsList.append("(").append(car.second->getCarId()).append(",").append(std::to_string(car.second->getDistanceFromBeginningOfRoad())).append(")");
+           _carsList=_carsList + "(" + car.second->getCarId() + "," + std::to_string(car.second->getDistanceFromBeginningOfRoad()) + ")" ;
         }
         
     }

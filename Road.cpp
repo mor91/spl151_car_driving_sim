@@ -106,7 +106,7 @@ std::string Road::getWaitingCarList() {
     std::string currentList;  
     std::queue<Car*> currentWaintingList;
     for(int i=0; i<_waitingForGreenLightList.size();i++){
-        currentList.append(_waitingForGreenLightList.front()->getCarId());
+        currentList + _waitingForGreenLightList.front()->getCarId();
         currentWaintingList.push(_waitingForGreenLightList.front());
         _waitingForGreenLightList.pop();
     }
