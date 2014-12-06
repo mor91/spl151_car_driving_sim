@@ -13,8 +13,8 @@
 
 class CarFaultEvent : public Event{
     int _time;
-    Car* _car;
     int _timeOfFault;
+    std::string _carID;
     std::map<std::string, Car*> _carsMap;
 public:
     CarFaultEvent();

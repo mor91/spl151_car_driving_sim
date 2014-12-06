@@ -84,7 +84,7 @@ Car* Road::getCarToRemove() {
 }
 
 
-void Road::addFaultyCar(Car& car) {
+void Road::addFaultyCar(std::string carID) {
 
 }
 

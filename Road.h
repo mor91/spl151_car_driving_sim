@@ -38,7 +38,7 @@ public:
     void baseSpeed();
     int getNoOfCars();
     void removeFaultyCar(Car& car);
-    void addFaultyCar(Car& car);//implementation on CarFaultyCar
+    void addFaultyCar(std::string carID);//implementation on CarFaultyCar
     void addCarToRoad();
     std::map<int,std::vector<Car*>> getFaultyCarsOnRoadMap();
     int getBaseSpeed();
