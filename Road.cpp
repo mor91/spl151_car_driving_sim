@@ -12,17 +12,20 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <algorithm>
+
 
 Road::Road() {
 }
 
-Road::Road( Junction &startingJunction,  Junction &endJunction, int length) {
+Road::Road( Junction &startingJunction,  Junction &endJunction, int length,int maxSpeed) {
     _startingJunction=&startingJunction;
     _endJunction=&endJunction;
     _length=length;
     _baseSpeed=0;
     _noOfCars=0;
     _timeSlice=_endJunction->getTimeSlice();
+    _maxSpeed=maxSpeed;
 }
 
 Road::~Road() {
@@ -38,7 +41,7 @@ int Road::getLen(){
     return _length;
 }
 void Road::baseSpeed(){
-    _baseSpeed=ceil(_length/_noOfCars);
+    _baseSpeed=std::min(_maxSpeed , (int)(ceil(_length/_noOfCars)));
 }
 int Road::getNoOfCars(){
     return _noOfCars;
@@ -49,6 +52,11 @@ void Road::removeFaultyCar(std::string carID){
 void Road::addCarToRoad(){
     _noOfCars++;
 }
+
+void Road::removeCarFromRoad() {
+    _noOfCars--;
+}
+
 
 std::map<std::string,int> Road::getFaultyCarsOnRoad() {
     return _faultyCarsOnRoad;
@@ -66,7 +74,7 @@ void Road::addCarToWaitingList(Car* car) {
 int Road::removeCarFromWaitingList() {
     int i=0;
     if(_waitingForGreenLightList.front()->setNextRoad()==1){
-        i=1;
+        i=1; 
     }
     _waitingForGreenLightList.pop();
     return i;

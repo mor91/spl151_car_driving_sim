@@ -20,6 +20,7 @@ Car::Car(const std::string& carID, std::map<int, Road*> &roadPlan) {
     _numOfJunctionTheCarPass=0;
     _currentRoadNumber=0;
     
+    
 }
 void Car::newSpeed(){
     int baseSpeed=_currentRoad->getBaseSpeed();
@@ -90,7 +91,11 @@ void Car::setCurrentRoad(Road* road) {
 
 int Car::setNextRoad() {
     if(_currentRoadNumber+1<_roadPlan->size()){
+        _currentRoad->removeCarFromRoad();
+        _currentRoad->baseSpeed();
         _currentRoad=_roadPlan->find(_currentRoadNumber+1)->second;
+        _currentRoad->addCarToRoad();
+        _currentRoad->baseSpeed();
         return 0;//dont remove car from carsmap
     }
     else{

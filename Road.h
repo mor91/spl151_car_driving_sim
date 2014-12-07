@@ -27,10 +27,11 @@ class Road {
     int _numOfWaitingCars;
     Car* _carToRemove;
     std::string _WaitingCarList;
+    int _maxSpeed;
     
 public:
     Road();
-    Road( Junction & startingJunction,  Junction &endJunction, int length);
+    Road( Junction & startingJunction,  Junction &endJunction, int length, int maxSpeed);
     virtual ~Road();
     Junction* getSJunc();
     Junction *getEJunc();
@@ -51,6 +52,7 @@ public:
     Car* getCarToRemove();
     std::queue<Car*> getWaitingList();
     std::string getWaitingCarList();
+    void removeCarFromRoad();
 
     
 };

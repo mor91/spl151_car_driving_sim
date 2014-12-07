@@ -31,6 +31,8 @@ AddCarEvent::~AddCarEvent() {
 void AddCarEvent::performEvent(){
        _roadPlan[0]->addCarToRoad();
        (*_carsMap)[_car->getCarId()]= _car;
+       _car->getCurrentRoad()->addCarToRoad();
+       _car->getCurrentRoad()->baseSpeed();
        /*for(auto & car : (*_carsMap)){
            std::cout << car.second->getCarId() << std::endl;
        }*/

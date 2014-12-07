@@ -78,7 +78,7 @@ void IniClass::readRoadMap(std::map<std::string, std::map<std::string, Road*> >&
 
             }
             else  startJunction=junctionsMap.find(junc.first)->second;
-            Road* road=new Road(*startJunction, *endJunction ,junc.second.get_value<int>());
+            Road* road=new Road(*startJunction, *endJunction ,junc.second.get_value<int>(),MAX_SPEED);
             roadMap[startJunction->getId()].insert(pair<std::string,Road*>(endJunction->getId(),road));
             endJunction->setInComingRoads(*road);
         }
