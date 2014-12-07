@@ -26,16 +26,17 @@ Car::Car(const std::string& carID, std::map<int, Road*> &roadPlan,int time) {
 }
 void Car::newSpeed(){
     int baseSpeed=_currentRoad->getBaseSpeed();
-    for(std::map<std::string,int>::iterator it = _currentRoad->getFaultyCarsOnRoad().begin(); it!=_currentRoad->getFaultyCarsOnRoad().end(); it++){
+    /*for(std::map<std::string,int>::iterator it = _currentRoad->getFaultyCarsOnRoad().begin(); it!=_currentRoad->getFaultyCarsOnRoad().end(); it++){
+        
+        if(_distanceFromBeginningOfRoad<it->second){
+            baseSpeed/=2;
+        }
+    }*/
+    for(std::map<std::string,int>::iterator it=_currentRoad->getFaultyCarsOnRoad().begin();it!=_currentRoad->getFaultyCarsOnRoad().end();it++){
         if(_distanceFromBeginningOfRoad<it->second){
             baseSpeed/=2;
         }
     }
-    /*for(auto & faultCar : _currentRoad->getFaultyCarsOnRoad()){
-        if(_distanceFromBeginningOfRoad<faultCar.second){
-            baseSpeed/=2;
-        }
-    }*/
     _speed=baseSpeed;
 }
 
