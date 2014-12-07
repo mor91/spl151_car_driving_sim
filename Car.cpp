@@ -40,6 +40,7 @@ Car::~Car() {//check that everything is deleted
 
 
 void Car::advanceCar(int time){
+    _history=_history + "(" + std::to_string(time) + "," + _currentRoad->getSJunc()->getId() + "," + _currentRoad->getEJunc()->getId() + "," + std::to_string(_distanceFromBeginningOfRoad)+ ")";
     int remaining=_currentRoad->getLen()-_distanceFromBeginningOfRoad;
     if(_remainingTimeToFault==1){
         _currentRoad->removeFaultyCar(_carID);
@@ -47,7 +48,7 @@ void Car::advanceCar(int time){
     if(_remainingTimeToFault>0){
         _remainingTimeToFault--;
     }
-    else if(remaining>0){
+     if(_remainingTimeToFault==0 && remaining>0){
             this->newSpeed();
             if(remaining<_speed){
                 _distanceFromBeginningOfRoad=_currentRoad->getLen();
@@ -58,7 +59,7 @@ void Car::advanceCar(int time){
             
             
     }
-    _history=_history + "(" + std::to_string(time) + "," + _currentRoad->getSJunc()->getId() + "," + _currentRoad->getEJunc()->getId() + "," + std::to_string(_distanceFromBeginningOfRoad)+ ")";
+    
     
 }
 int Car::getDistanceFromBeginningOfRoad(){
@@ -91,11 +92,13 @@ void Car::setCurrentRoad(Road* road) {
 
 int Car::setNextRoad() {
     if(_currentRoadNumber+1<_roadPlan->size()){
-        _currentRoad->removeCarFromRoad();
-        _currentRoad->baseSpeed();
+        _currentRoad->removeCarFromRoad();//noOfCarsOnRoad --
+        _currentRoad->baseSpeed();//calculate new speed by num of cars on the road
         _currentRoad=_roadPlan->find(_currentRoadNumber+1)->second;
-        _currentRoad->addCarToRoad();
+        _currentRoad->addCarToRoad();//noOfCarsOnRoad ++
         _currentRoad->baseSpeed();
+        _currentRoadNumber ++;
+        _distanceFromBeginningOfRoad=0;
         return 0;//dont remove car from carsmap
     }
     else{

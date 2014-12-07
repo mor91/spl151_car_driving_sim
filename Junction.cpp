@@ -43,27 +43,35 @@ std::string Junction::getId(){
 int Junction::setGreenForIncomingJunction() {
     int found=0;
     int removeCar=0;
-    for(int i=0; i<_inComingRoads.size() && !found;i++){
+    int changeLight=0;
+    for(int i=0; i<_inComingRoads.size() && found>0;i++){
         if(_inComingRoads[i]->getSJunc()->getId().compare(_greenForRoad->getSJunc()->getId())==0){
-            found=1; 
+            found=i+1; 
         }
-        if(_greenForRoad->getTimeSlice()==_currentTimeSlice){
-            if(_greenForRoad->getNumOfWaitingCars()>=_greenForRoad->getTimeSlice())
-                _greenForRoad->setTimeSlice(std::min(_greenForRoad->getTimeSlice()+1,_maxTimeSlice));
-            if(_greenForRoad->getNumOfWaitingCars()==0)
-                _greenForRoad->setTimeSlice(std::min(_greenForRoad->getTimeSlice()-1, _minTimeSlice));
-            if(i+1==_inComingRoads.size())
-                _greenForRoad=_inComingRoads[0];
-            _currentTimeSlice=0;
-            _greenForRoad->setNumOfWaitingCars();
+    }//found the road that has a green light in the road map
+    if(_greenForRoad->getTimeSlice()==_currentTimeSlice){//end o green light or this road
+        if(_greenForRoad->getNumOfWaitingCars()>=_greenForRoad->getTimeSlice()){
+            _greenForRoad->setTimeSlice(std::min(_greenForRoad->getTimeSlice()+1,_maxTimeSlice));   
         }
+        if(_greenForRoad->getNumOfWaitingCars()==0){
+            _greenForRoad->setTimeSlice(std::min(_greenForRoad->getTimeSlice()-1, _minTimeSlice));
+        }
+        changeLight=1;
     }
     if(_currentTimeSlice<_greenForRoad->getTimeSlice()){
         _currentTimeSlice++;
-        if(_greenForRoad->getWaitingList().size()!=0 && _greenForRoad->removeCarFromWaitingList()==1){
-            carToRemove=_greenForRoad->getCarToRemove()->getCarId();
-            removeCar=1;
-        }
+    }
+    if(_greenForRoad->getWaitingList().size()!=0 && _greenForRoad->removeCarFromWaitingList()==1){
+        carToRemove=_greenForRoad->getCarToRemove()->getCarId();
+        removeCar=1;  
+    }
+    if(changeLight){
+         if(found==_inComingRoads.size()){
+            _greenForRoad=_inComingRoads[0];
+         }
+        else _greenForRoad=_inComingRoads[found];
+        _currentTimeSlice=0;
+        _greenForRoad->setNumOfWaitingCars();
     }
 
 }

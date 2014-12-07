@@ -74,7 +74,7 @@ void Road::addCarToWaitingList(Car* car) {
 int Road::removeCarFromWaitingList() {
     int i=0;
     if(_waitingForGreenLightList.front()->setNextRoad()==1){
-        i=1; 
+        i=1; //remove car from cars map
     }
     _waitingForGreenLightList.pop();
     return i;
