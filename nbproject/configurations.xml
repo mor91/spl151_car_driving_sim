@@ -9,7 +9,6 @@
       <itemPath>CarFaultEvent.h</itemPath>
       <itemPath>CarReport.h</itemPath>
       <itemPath>Event.h</itemPath>
-      <itemPath>InComingJunction.h</itemPath>
       <itemPath>Junction.h</itemPath>
       <itemPath>JunctionReport.h</itemPath>
       <itemPath>Report.h</itemPath>
@@ -29,7 +28,6 @@
       <itemPath>CarFaultEvent.cpp</itemPath>
       <itemPath>CarReport.cpp</itemPath>
       <itemPath>Event.cpp</itemPath>
-      <itemPath>InComingJunction.cpp</itemPath>
       <itemPath>Junction.cpp</itemPath>
       <itemPath>JunctionReport.cpp</itemPath>
       <itemPath>Report.cpp</itemPath>
@@ -71,7 +69,7 @@
       </toolsSet>
       <compileType>
         <ccTool>
-          <standard>8</standard>
+          <standard>4</standard>
           <commandlineTool>g++</commandlineTool>
         </ccTool>
       </compileType>

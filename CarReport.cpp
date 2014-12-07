@@ -58,7 +58,7 @@ std::string CarReport::getCarId() {
 }
 
 std::string CarReport::getFaultyTimeLeft() {
-    return std::to_string(_faultyTimeLeft);
+    return boost::lexical_cast<std::string>(_faultyTimeLeft);
 }
 
 std::string CarReport::getHistory() {

@@ -58,27 +58,29 @@ void IniClass::readRoadMap(std::map<std::string, std::map<std::string, Road*> >&
     cout << "Starting readRoadMap" << endl;
     boost::property_tree::ptree ptIn;
     boost::property_tree::ini_parser::read_ini("RoadMap.ini", ptIn);
-     for (auto& section : ptIn)
+    //for (auto& section : ptIn)
+    for (boost::property_tree::ptree::iterator section=ptIn.begin();section!=ptIn.end();section++)
     {   
         Junction* endJunction;
         //std::cout << junc.first << "=" << junc.second.get_value<std::string>() << "\n";
-        if(junctionsMap.find(section.first)==junctionsMap.end()){
-            endJunction=new Junction(section.first,DEFAULT_TIME_SLICE, MAX_TIME_SLICE, MIN_TIME_SLICE);
+        if(junctionsMap.find(section->first)==junctionsMap.end()){
+            endJunction=new Junction(section->first,DEFAULT_TIME_SLICE, MAX_TIME_SLICE, MIN_TIME_SLICE);
             junctionsMap.insert(pair<std::string , Junction*>(endJunction->getId(),endJunction));
         }
-        else endJunction=junctionsMap.find(section.first)->second;
-        std::cout << '[' << section.first << "]\n";
-        for (auto& junc : section.second)
+        else endJunction=junctionsMap.find(section->first)->second;
+        std::cout << '[' << section->first << "]\n";
+        //for (auto& junc : section.second)
+        for (boost::property_tree::ptree::iterator junc = section->second.begin();junc!=section->second.end();junc++)
         {
             Junction* startJunction;
-            std::cout << junc.first << "=" << junc.second.get_value<std::string>() << "\n";
-            if(junctionsMap.find(junc.first)==junctionsMap.end()){
-                startJunction=new Junction(junc.first,DEFAULT_TIME_SLICE, MAX_TIME_SLICE, MIN_TIME_SLICE);
+            std::cout << junc->first << "=" << junc->second.get_value<std::string>() << "\n";
+            if(junctionsMap.find(junc->first)==junctionsMap.end()){
+                startJunction=new Junction(junc->first,DEFAULT_TIME_SLICE, MAX_TIME_SLICE, MIN_TIME_SLICE);
                 junctionsMap.insert(pair<std::string , Junction*>(startJunction->getId(),startJunction));
 
             }
-            else  startJunction=junctionsMap.find(junc.first)->second;
-            Road* road=new Road(*startJunction, *endJunction ,junc.second.get_value<int>(),MAX_SPEED);
+            else  startJunction=junctionsMap.find(junc->first)->second;
+            Road* road=new Road(*startJunction, *endJunction ,junc->second.get_value<int>(),MAX_SPEED);
             roadMap[startJunction->getId()].insert(pair<std::string,Road*>(endJunction->getId(),road));
             endJunction->setInComingRoads(*road);
         }
@@ -89,12 +91,12 @@ void IniClass::readRoadMap(std::map<std::string, std::map<std::string, Road*> >&
     //    std::cout << "road:"<<keyPair.first <<":" << keyPair.second.getSJunc()<<", "<<keyPair.second.getEJunc() <<", "<<keyPair.second.getLen()<< endl;
 }
 
-void IniClass::readCommands(boost::property_tree::ptree& pt, std::map<std::string, Car*>& cars, std::map<int, std::vector<Report*> >& reportsMap, std::map<std::string, std::map<std::string,Road*>> & roadMap,std::map<std::string, Junction*> &junctionsMap) const {
+void IniClass::readCommands(boost::property_tree::ptree& pt, std::map<std::string, Car*>& cars, std::map<int, std::vector<Report*> >& reportsMap, std::map<std::string, std::map<std::string,Road*> > & roadMap,std::map<std::string, Junction*> &junctionsMap) const {
     cout << "Starting readCommands" << endl;
     boost::property_tree::ptree ptIn;
     boost::property_tree::ini_parser::read_ini("Commands.ini", ptIn);
-    std::map<int, std::vector<Report*>> reportMap;
-    for (auto& section : ptIn)
+    std::map<int, std::vector<Report*> > reportMap;
+    for (boost::property_tree::ptree::iterator section=ptIn.begin();section!=ptIn.end();section++)
      {
         std::string type;
         std::string time;
@@ -105,24 +107,24 @@ void IniClass::readCommands(boost::property_tree::ptree& pt, std::map<std::strin
         std::string junctionId;
         
     
-        std::cout << '[' << section.first << "]\n";
-        for (auto& key : section.second)
+        std::cout << '[' << section->first << "]\n";
+        for (boost::property_tree::ptree::iterator key = section->second.begin();key!=section->second.end();key++)
         {
-            std::cout << key.first << "=" << key.second.get_value<std::string>() << "\n";
-            if(key.first=="type")
-                type=key.second.get_value<std::string>();
-            if(key.first=="time")
-                time=key.second.get_value<std::string>();
-            if(key.first=="id")
-                id=key.second.get_value<std::string>();
-            if(key.first=="carId")
-                carId=key.second.get_value<std::string>();
-            if(key.first=="startJunction")
-                startJunction=key.second.get_value<std::string>();
-            if(key.first=="endJunction")
-                endJunction=key.second.get_value<std::string>();
-            if(key.first=="junctionId")
-                junctionId=key.second.get_value<std::string>();
+            std::cout << key->first << "=" << key->second.get_value<std::string>() << "\n";
+            if(key->first=="type")
+                type=key->second.get_value<std::string>();
+            if(key->first=="time")
+                time=key->second.get_value<std::string>();
+            if(key->first=="id")
+                id=key->second.get_value<std::string>();
+            if(key->first=="carId")
+                carId=key->second.get_value<std::string>();
+            if(key->first=="startJunction")
+                startJunction=key->second.get_value<std::string>();
+            if(key->first=="endJunction")
+                endJunction=key->second.get_value<std::string>();
+            if(key->first=="junctionId")
+                junctionId=key->second.get_value<std::string>();
         
        
             
@@ -131,20 +133,20 @@ void IniClass::readCommands(boost::property_tree::ptree& pt, std::map<std::strin
         
         if(type=="termination"){
            //std::cout<< "termination time=" << time << endl;
-           terminationTime=stoi(time);
+           terminationTime=boost::lexical_cast<int>(time);
         }    
         if(type=="car_report"){
-           Report *carReport=new CarReport(carId, stoi(time),id,pt,cars);
-           reportsMap[stoi(time)].push_back(carReport);
+           Report *carReport=new CarReport(carId, boost::lexical_cast<int>(time),id,pt,cars);
+           reportsMap[boost::lexical_cast<int>(time)].push_back(carReport);
         }
         if(type=="road_report"){
-            Report *roadReport=new RoadReport(startJunction, endJunction, stoi(time),id,pt, cars, roadMap, junctionsMap);
-            reportsMap[stoi(time)].push_back(roadReport);
+            Report *roadReport=new RoadReport(startJunction, endJunction, boost::lexical_cast<int>(time),id,pt, cars, roadMap, junctionsMap);
+            reportsMap[boost::lexical_cast<int>(time)].push_back(roadReport);
         }
         if(type=="junction_report"){
             Junction* junction=junctionsMap.find(junctionId)->second;
-            Report *junctionReport=new JunctionReport(*junction, stoi(time), id,pt,cars,junctionsMap);
-            reportsMap[stoi(time)].push_back(junctionReport);
+            Report *junctionReport=new JunctionReport(*junction, boost::lexical_cast<int>(time), id,pt,cars,junctionsMap);
+            reportsMap[boost::lexical_cast<int>(time)].push_back(junctionReport);
         }
             
         
@@ -155,11 +157,12 @@ void IniClass::readCommands(boost::property_tree::ptree& pt, std::map<std::strin
     
 }
 
-void IniClass::readEvents(std::map<std::string, Car*>& cars, std::map<int, std::vector<Event*> >& eventsMap, std::map<std::string, std::map<std::string,Road*>> &roadMap) const {
+void IniClass::readEvents(std::map<std::string, Car*>& cars, std::map<int, std::vector<Event*> >& eventsMap, std::map<std::string, std::map<std::string,Road*> > &roadMap) const {
     cout << "Starting readEvents" << endl;
     boost::property_tree::ptree ptIn;
     boost::property_tree::ini_parser::read_ini("Events.ini", ptIn);
-    for (auto& section : ptIn) {
+    for (boost::property_tree::ptree::iterator section=ptIn.begin();section!=ptIn.end();section++)
+    {
         std::string type;
         std::string time;
         std::string carId;
@@ -167,19 +170,19 @@ void IniClass::readEvents(std::map<std::string, Car*>& cars, std::map<int, std::
         std::string timeOfFault;
 
 
-        std::cout << '[' << section.first << "]\n";
-        for (auto& key : section.second) {
-            std::cout << key.first << "=" << key.second.get_value<std::string>() << "\n";
-            if (key.first == "type")
-                type = key.second.get_value<std::string>();
-            if (key.first == "time")
-                time = key.second.get_value<std::string>();
-            if (key.first == "carId")
-                carId = key.second.get_value<std::string>();
-            if (key.first == "roadPlan")
-                roadPlan = key.second.get_value<std::string>();
-            if (key.first == "timeOfFault")
-                timeOfFault = key.second.get_value<std::string>();
+        std::cout << '[' << section->first << "]\n";
+        for (boost::property_tree::ptree::iterator key = section->second.begin();key!=section->second.end();key++) {
+            std::cout << key->first << "=" << key->second.get_value<std::string>() << "\n";
+            if (key->first == "type")
+                type = key->second.get_value<std::string>();
+            if (key->first == "time")
+                time = key->second.get_value<std::string>();
+            if (key->first == "carId")
+                carId = key->second.get_value<std::string>();
+            if (key->first == "roadPlan")
+                roadPlan = key->second.get_value<std::string>();
+            if (key->first == "timeOfFault")
+                timeOfFault = key->second.get_value<std::string>();
 
         }
         if (type == "car_arrival") {
@@ -191,12 +194,12 @@ void IniClass::readEvents(std::map<std::string, Car*>& cars, std::map<int, std::
                         roadPlanMap.insert(std::pair<int, Road*>(i,roadMap.find(roadPlanJunctions[i])->second.find(roadPlanJunctions[i+1])->second));
                     }
             carCounter++;
-            Event *carArrivel=new AddCarEvent(stoi(time),carId, roadPlanMap, cars);
-            eventsMap[stoi(time)].push_back(carArrivel);//maybe we need to init the inner vector
+            Event *carArrivel=new AddCarEvent(boost::lexical_cast<int>(time), carId, roadPlanMap, cars);
+            eventsMap[boost::lexical_cast<int>(time)].push_back(carArrivel);//maybe we need to init the inner vector
         }
         if(type=="car_fault"){
-            Event *carFault=new CarFaultEvent(stoi(time), carId ,stoi(timeOfFault),cars );
-            eventsMap[stoi(time)].push_back(carFault);///maybe we need to init the inner vector
+            Event *carFault=new CarFaultEvent(boost::lexical_cast<int>(time), carId ,boost::lexical_cast<int>(timeOfFault), cars);
+            eventsMap[boost::lexical_cast<int>(time)].push_back(carFault);///maybe we need to init the inner vector
         } 
         
         

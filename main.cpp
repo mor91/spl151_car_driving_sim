@@ -34,10 +34,10 @@ int main(int argc, char** argv) {
     std::map<std::string, Car*> cars;
     boost::property_tree::ptree pt;
     
-    std::map<int, std::vector<Report*>> reportsMap;//=a.readCommands(*pt, *cars);
-    std::map<int, std::vector<Event*>> eventsMap;//=a.readEvents(*cars);
+    std::map<int, std::vector<Report*> > reportsMap;//=a.readCommands(*pt, *cars);
+    std::map<int, std::vector<Event*> > eventsMap;//=a.readEvents(*cars);
     std::map<std::string, Junction*> junctions;//=a.getJunctionsMap();
-    std::map<std::string, std::map<std::string,Road*>> roadMap;//=a.readRoadMap();
+    std::map<std::string, std::map<std::string,Road*> > roadMap;//=a.readRoadMap();
     IniClass a;
     a.readConfiguration();
     
@@ -61,21 +61,26 @@ int main(int argc, char** argv) {
     
     while(simulationRunning){
         if(eventsMap.find(time)!=eventsMap.end()){
-            for(auto& event:eventsMap[time]){
-                    event->performEvent();                      
+            //for(auto& event:eventsMap[time]){
+            for(std::vector<Event*>::iterator event = eventsMap[time].begin();event!=eventsMap[time].end();event++){
+                    (*event)->performEvent();                      
             }
         } 
         if(reportsMap.find(time)!=reportsMap.end()){
-            for(auto& report:reportsMap[time]){
-                    report->writeReport();
+            for(std::vector<Report*>::iterator report = reportsMap[time].begin();report!=reportsMap[time].end();report++)
+            {
+            //for(auto& report:reportsMap[time]){
+                    (*report)->writeReport();
             }
         }
-        for(auto& car:cars){
-            car.second->advanceCar(time);
+        for(std::map<std::string,Car*>::iterator car = cars.begin();car!=cars.end();car++){
+        //for(auto& car:cars){
+            car->second->advanceCar(time);
         }
-        for(auto& junc:junctions){
-            if(junc.second->setGreenForIncomingJunction()==1){
-                std::string carToRemove=junc.second->getCarToRemove();
+        //for(auto& junc:junctions){
+        for(std::map<std::string,Junction*>::iterator junc = junctions.begin();junc!=junctions.end();junc++){
+            if(junc->second->setGreenForIncomingJunction()==1){
+                std::string carToRemove=junc->second->getCarToRemove();
                 cars.erase(carToRemove);
                 cars.find(carToRemove)->second->~Car();
                 finishedCarsCounter++;
@@ -90,10 +95,10 @@ int main(int argc, char** argv) {
     
     boost::property_tree::write_ini("Reports_output.ini", pt);
     
-    for(auto& junc:junctions){
-        junc.second->~Junction();
+    for(std::map<std::string,Junction*>::iterator junc = junctions.begin();junc!=junctions.end();junc++){
+        junc->second->~Junction();
     }
-    for(auto& key:roadMap){
+    /*for(auto& key:roadMap){
         for(auto& inkey:key.second){
             inkey.second->~Road();           
         }
@@ -111,7 +116,5 @@ int main(int argc, char** argv) {
         for(auto& inkey:key.second){
             inkey->~Report();
         }
-        
-    
-    }
+    }*/
 }

@@ -25,9 +25,9 @@ public:
     IniClass();
     virtual ~IniClass();
     void readConfiguration() const;
-    void readRoadMap(std::map<std::string, std::map<std::string,Road*>> &roadMap,std::map<std::string, Junction*> &junctionsMap) const;
-    void readCommands(boost::property_tree::ptree &pt,std::map<std::string, Car*> &cars, std::map<int, std::vector<Report*>> &reportsMap ,std::map<std::string, std::map<std::string,Road*>> &roadMap ,std::map<std::string, Junction*> &junctionsMap) const;
-    void readEvents(std::map<std::string, Car*> &cars,std::map<int, std::vector<Event*>> &eventsMap,std::map<std::string, std::map<std::string,Road*>> &roadMap) const;
+    void readRoadMap(std::map<std::string, std::map<std::string,Road*> > &roadMap,std::map<std::string, Junction*> &junctionsMap) const;
+    void readCommands(boost::property_tree::ptree &pt,std::map<std::string, Car*> &cars, std::map<int, std::vector<Report*> > &reportsMap ,std::map<std::string, std::map<std::string,Road*> > &roadMap ,std::map<std::string, Junction*> &junctionsMap) const;
+    void readEvents(std::map<std::string, Car*> &cars,std::map<int, std::vector<Event*> > &eventsMap,std::map<std::string, std::map<std::string,Road*> > &roadMap) const;
     void writeReports(Report &report) const;
     int getMaxSpeed();
     int getDefaultTimeSlice();

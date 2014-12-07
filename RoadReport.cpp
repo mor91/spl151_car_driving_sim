@@ -18,7 +18,7 @@
 RoadReport::RoadReport() {
 }
 
-RoadReport::RoadReport(std::string &startJunction, std::string &endJunction, int time, std::string & reportId,boost::property_tree::ptree &pt,std::map<std::string, Car*> &cars,std::map<std::string, std::map<std::string,Road*>> &roadMap,std::map<std::string, Junction*> &junctionsMap){
+RoadReport::RoadReport(std::string &startJunction, std::string &endJunction, int time, std::string & reportId,boost::property_tree::ptree &pt,std::map<std::string, Car*> &cars,std::map<std::string, std::map<std::string,Road*> > &roadMap,std::map<std::string, Junction*> &junctionsMap){
     _junctionsMap=&junctionsMap;
     _startJunction=_junctionsMap->find(startJunction)->second;
     _endJunction=_junctionsMap->find(endJunction)->second;
@@ -41,13 +41,14 @@ RoadReport::~RoadReport() {
 }
 void RoadReport::writeReport(){
     Road* road=_roadMap->find(_startJunction->getId())->second.find(_endJunction->getId())->second;
-    for(auto& car: *_cars){
+    //for(auto& car: *_cars){
+    for(std::map<std::string,Car*>::iterator car = _cars->begin();car!=_cars->end();car++){
         if(
-                car.second->getCurrentRoad()->getSJunc()->getId().compare(road->getSJunc()->getId()) &&
-                car.second->getCurrentRoad()->getEJunc()->getId().compare(road->getEJunc()->getId())
+                car->second->getCurrentRoad()->getSJunc()->getId().compare(road->getSJunc()->getId()) &&
+                car->second->getCurrentRoad()->getEJunc()->getId().compare(road->getEJunc()->getId())
                 )
         {
-           _carsList=_carsList + "(" + car.second->getCarId() + "," + std::to_string(car.second->getDistanceFromBeginningOfRoad()) + ")" ;
+           _carsList=_carsList + "(" + car->second->getCarId() + "," + boost::lexical_cast<std::string>(car->second->getDistanceFromBeginningOfRoad()) + ")" ;
         }
         
     }
