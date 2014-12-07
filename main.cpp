@@ -93,7 +93,9 @@ int main(int argc, char** argv) {
         }
     }
     
+    std::cout << "writing ini.....";
     boost::property_tree::write_ini("Reports_output.ini", pt);
+    std::cout << "done" << std::endl;
     
     for(std::map<std::string,Junction*>::iterator junc = junctions.begin();junc!=junctions.end();junc++){
         junc->second->~Junction();

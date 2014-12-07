@@ -9,19 +9,19 @@ CND_DISTDIR=dist
 # Debug configuration
 CND_PLATFORM_Debug=GNU-Linux-x86
 CND_ARTIFACT_DIR_Debug=dist/Debug/GNU-Linux-x86
-CND_ARTIFACT_NAME_Debug=cardrivingsimulator
-CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux-x86/cardrivingsimulator
+CND_ARTIFACT_NAME_Debug=spl151_car_driving_sim
+CND_ARTIFACT_PATH_Debug=dist/Debug/GNU-Linux-x86/spl151_car_driving_sim
 CND_PACKAGE_DIR_Debug=dist/Debug/GNU-Linux-x86/package
-CND_PACKAGE_NAME_Debug=cardrivingsimulator.tar
-CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux-x86/package/cardrivingsimulator.tar
+CND_PACKAGE_NAME_Debug=spl151cardrivingsim.tar
+CND_PACKAGE_PATH_Debug=dist/Debug/GNU-Linux-x86/package/spl151cardrivingsim.tar
 # Release configuration
 CND_PLATFORM_Release=GNU-Linux-x86
 CND_ARTIFACT_DIR_Release=dist/Release/GNU-Linux-x86
-CND_ARTIFACT_NAME_Release=cardrivingsimulator
-CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux-x86/cardrivingsimulator
+CND_ARTIFACT_NAME_Release=spl151_car_driving_sim
+CND_ARTIFACT_PATH_Release=dist/Release/GNU-Linux-x86/spl151_car_driving_sim
 CND_PACKAGE_DIR_Release=dist/Release/GNU-Linux-x86/package
-CND_PACKAGE_NAME_Release=cardrivingsimulator.tar
-CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux-x86/package/cardrivingsimulator.tar
+CND_PACKAGE_NAME_Release=spl151cardrivingsim.tar
+CND_PACKAGE_PATH_Release=dist/Release/GNU-Linux-x86/package/spl151cardrivingsim.tar
 #
 # include compiler specific variables
 #
