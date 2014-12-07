@@ -52,11 +52,11 @@ void JunctionReport::writeReport(){
     }
     _pt->put(_reportId + ".junctionId",_junction.getId());
     _pt->put(_reportId + ".timeSlices", _timeSlices);
-    for(int i=0; i<junction->getInComingRoads().size();i++){
+    /*for(int i=0; i<junction->getInComingRoads().size();i++){
         std::string juncId=junction->getInComingRoads()[i]->getSJunc()->getId();
         std::string carsWaiting=junction->getInComingRoads()[i]->getWaitingCarList();
         _pt->put(_reportId + "." + juncId, carsWaiting);
-    }
+    }*/
 }
 
 std::string JunctionReport::getReportId() {
