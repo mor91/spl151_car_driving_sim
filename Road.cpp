@@ -120,4 +120,5 @@ std::string Road::getWaitingCarList() {
     }
     _WaitingCarList=currentList;
     _waitingForGreenLightList=currentWaintingList;
+    return currentList;
 }
