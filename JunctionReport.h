@@ -26,7 +26,7 @@ class JunctionReport:public Report {
     std::vector<std::string> _inComingJunctionID;
     int _time;
     std::string _reportId;
-    std::map<std::string,std::string> _junctionsWaitingCars;
+    //std::map<std::string,std::string> _junctionsWaitingCars;
     std::string _type;
     boost::property_tree::ptree* _pt;
     std::map<std::string, Junction*>* _junctionsMap;

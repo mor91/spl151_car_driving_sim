@@ -39,7 +39,7 @@ JunctionReport::~JunctionReport() {
 
 }
 void JunctionReport::writeReport(){
-  /* std::string carsWaitingList;
+    std::string carsWaitingList;
     Junction* junction=_junctionsMap->find(_junction.getId())->second;
     int j=0;
     for(int i=0; i<junction->getInComingRoads().size();i++){
@@ -48,15 +48,21 @@ void JunctionReport::writeReport(){
             j=junction->getInComingRoads()[i]->getTimeSlice()-junction->getCurrentTimeSlice();
         else j=-1;
         _timeSlices += "(" + boost::lexical_cast<std::string>(junction->getInComingRoads()[i]->getTimeSlice()) + "," + boost::lexical_cast<std::string>(j) + ")";
-        _junctionsWaitingCars.insert(std::pair<std::string,std::string>(junction->getInComingRoads()[i]->getSJunc()->getId(),junction->getInComingRoads()[i]->getWaitingCarList()));
+        //_junctionsWaitingCars.insert(std::pair<std::string,std::string>(junction->getInComingRoads()[i]->getSJunc()->getId(),junction->getInComingRoads()[i]->getWaitingCarList()));
     }
     _pt->put(_reportId + ".junctionId",_junction.getId());
     _pt->put(_reportId + ".timeSlices", _timeSlices);
+    /*for(std::vector<Road*>::iterator road = junction->getInComingRoads().begin();road!=junction->getInComingRoads().end();++junction){
+        std::string juncId=(*road)->getSJunc()->getId();
+        std::string carsWaiting=(*road)->getWaitingCarList();
+        _pt->put(_reportId + "." + juncId, carsWaiting);
+    }*/
     for(int i=0; i<junction->getInComingRoads().size();i++){
         std::string juncId=junction->getInComingRoads()[i]->getSJunc()->getId();
         std::string carsWaiting=junction->getInComingRoads()[i]->getWaitingCarList();
         _pt->put(_reportId + "." + juncId, carsWaiting);
-    }*/
+        //std::cout << _reportId << juncId << std::endl;
+    }
 }
 
 std::string JunctionReport::getReportId() {
