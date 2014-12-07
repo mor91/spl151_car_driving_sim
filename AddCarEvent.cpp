@@ -19,7 +19,7 @@ AddCarEvent::AddCarEvent() {
 AddCarEvent::AddCarEvent(int time, std::string const &carID ,std::map<int, Road*> const roadPlan,std::map<std::string, Car*> &cars) {
     _time=time;
     _roadPlan=roadPlan;
-    _car=new Car(carID, _roadPlan);
+    _car=new Car(carID, _roadPlan ,time);
     _carsMap=&cars;
 }
 

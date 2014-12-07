@@ -12,7 +12,7 @@
 #include <map>
 #include <string>
 
-Car::Car(const std::string& carID, std::map<int, Road*> &roadPlan) {
+Car::Car(const std::string& carID, std::map<int, Road*> &roadPlan,int time) {
     _carID=carID;
     _remainingTimeToFault=0;
     _distanceFromBeginningOfRoad=0;
@@ -20,7 +20,8 @@ Car::Car(const std::string& carID, std::map<int, Road*> &roadPlan) {
     _currentRoad=roadPlan[0];
     _numOfJunctionTheCarPass=0;
     _currentRoadNumber=0;
-    
+    _history= "(" + boost::lexical_cast<std::string>(time) + "," + _currentRoad->getSJunc()->getId() + "," + _currentRoad->getEJunc()->getId() + "," + boost::lexical_cast<std::string>(_distanceFromBeginningOfRoad)+ ")";
+      
     
 }
 void Car::newSpeed(){
@@ -46,7 +47,6 @@ Car::~Car() {//check that everything is deleted
 
 
 void Car::advanceCar(int time){
-    _history=_history + "(" + boost::lexical_cast<std::string>(time) + "," + _currentRoad->getSJunc()->getId() + "," + _currentRoad->getEJunc()->getId() + "," + boost::lexical_cast<std::string>(_distanceFromBeginningOfRoad)+ ")";
     int remaining=_currentRoad->getLen()-_distanceFromBeginningOfRoad;
     if(_remainingTimeToFault==1){
         _currentRoad->removeFaultyCar(_carID);
@@ -66,7 +66,7 @@ void Car::advanceCar(int time){
             
     }
     
-    
+    _history=_history + "(" + boost::lexical_cast<std::string>(time + 1) + "," + _currentRoad->getSJunc()->getId() + "," + _currentRoad->getEJunc()->getId() + "," + boost::lexical_cast<std::string>(_distanceFromBeginningOfRoad)+ ")";
 }
 int Car::getDistanceFromBeginningOfRoad(){
     return _distanceFromBeginningOfRoad;
