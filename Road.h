@@ -28,6 +28,7 @@ class Road {
     Car* _carToRemove;
     std::string _WaitingCarList;
     int _maxSpeed;
+    int _carsWaitingForGreenLight;
     
 public:
     Road();
@@ -53,6 +54,8 @@ public:
     std::queue<Car*> getWaitingList();
     std::string getWaitingCarList();
     void removeCarFromRoad();
+    int getCarsWaitingForGreenLight();
+    void setCarsWaitingForGreenLight();
 
     
 };

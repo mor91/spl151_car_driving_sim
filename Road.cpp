@@ -26,6 +26,7 @@ Road::Road( Junction &startingJunction,  Junction &endJunction, int length,int m
     _noOfCars=0;
     _timeSlice=_endJunction->getTimeSlice();
     _maxSpeed=maxSpeed;
+    _carsWaitingForGreenLight=0;
 }
 
 Road::~Road() {
@@ -69,6 +70,15 @@ int Road::getBaseSpeed() {
 
 void Road::addCarToWaitingList(Car* car) {
     _waitingForGreenLightList.push(car);
+    _carsWaitingForGreenLight=1;
+}
+
+int Road::getCarsWaitingForGreenLight() {
+    return _carsWaitingForGreenLight;
+}
+
+void Road::setCarsWaitingForGreenLight() {
+    _carsWaitingForGreenLight=0;
 }
 
 int Road::removeCarFromWaitingList() {

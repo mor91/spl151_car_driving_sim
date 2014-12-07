@@ -10,6 +10,7 @@
 #include <vector>
 #include <string>
 #include <iostream>
+
 std::string carToRemove;
 
 Junction::Junction() {
@@ -52,10 +53,10 @@ int Junction::setGreenForIncomingJunction() {
     if(_currentTimeSlice==0)
         _greenForRoad->setNumOfWaitingCars();
     if(_greenForRoad->getTimeSlice()==_currentTimeSlice){//end o green light or this road
-        if(_greenForRoad->getNumOfWaitingCars()>=_greenForRoad->getTimeSlice()){
+        if(_greenForRoad->getNumOfWaitingCars()>=_greenForRoad->getTimeSlice() ){
             _greenForRoad->setTimeSlice(std::min(_greenForRoad->getTimeSlice()+1,_maxTimeSlice));   
         }
-        if(_greenForRoad->getNumOfWaitingCars()==0){
+        if(_greenForRoad->getNumOfWaitingCars()==0 && !_greenForRoad->getCarsWaitingForGreenLight()){
             _greenForRoad->setTimeSlice(std::max(_greenForRoad->getTimeSlice()-1, _minTimeSlice));
         }
         changeLight=1;
@@ -74,6 +75,7 @@ int Junction::setGreenForIncomingJunction() {
         else _greenForRoad=_inComingRoads[found];
         _currentTimeSlice=0;
         _greenForRoad->setNumOfWaitingCars();
+        _greenForRoad->setCarsWaitingForGreenLight();
     }
 
 }
