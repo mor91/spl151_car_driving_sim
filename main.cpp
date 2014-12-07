@@ -98,23 +98,33 @@ int main(int argc, char** argv) {
     for(std::map<std::string,Junction*>::iterator junc = junctions.begin();junc!=junctions.end();junc++){
         junc->second->~Junction();
     }
-    /*for(auto& key:roadMap){
-        for(auto& inkey:key.second){
-            inkey.second->~Road();           
+    
+    //for(auto& key:roadMap){
+    for(std::map<std::string, std::map<std::string,Road*> >::iterator key = roadMap.begin();key!=roadMap.end();key++){
+        //for(auto& inkey:key.second){
+        for(std::map<std::string,Road*>::iterator inkey = key->second.begin();inkey!=key->second.end();inkey++){
+            inkey->second->~Road();           
         }
         
     }
-    for(auto& key:cars){
-        key.second->~Car();
+    
+    //for(auto& key:cars){
+    for(std::map<std::string, Car*>::iterator key = cars.begin();key!=cars.end();key++){
+        key->second->~Car();
     }
-    for(auto& key:eventsMap){
-        for(auto& inKey:key.second){
-            inKey->~Event();
+    
+    //for(auto& key:eventsMap){
+    for(std::map<int, std::vector<Event*> >::iterator key=eventsMap.begin();key!=eventsMap.end();key++){
+        //for(auto& inKey:key->second){
+        for(std::vector<Event*>::iterator inkey = key->second.begin() ; inkey!=key->second.end();inkey++){
+            (*inkey)->~Event();
         }
     }
-    for(auto& key:reportsMap){
-        for(auto& inkey:key.second){
-            inkey->~Report();
+    
+    //for(auto& key:reportsMap){
+    for(std::map<int, std::vector<Report*> >::iterator key=reportsMap.begin();key!=reportsMap.end();key++){
+        for(std::vector<Report*>::iterator inkey = key->second.begin() ; inkey!=key->second.end();inkey++){
+            (*inkey)->~Report();
         }
-    }*/
+    }
 }
