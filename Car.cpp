@@ -32,6 +32,11 @@ void Car::newSpeed(){
             baseSpeed/=2;
         }
     }*/
+    if (_currentRoad->getFaultyCarsOnRoad().size()==0) {
+        _speed=baseSpeed;
+        return;
+    }
+
     for(std::map<std::string,int>::iterator it=_currentRoad->getFaultyCarsOnRoad().begin();it!=_currentRoad->getFaultyCarsOnRoad().end();it++){
         if(_distanceFromBeginningOfRoad<it->second){
             baseSpeed/=2;
